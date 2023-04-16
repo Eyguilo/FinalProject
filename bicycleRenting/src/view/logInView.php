@@ -1,17 +1,19 @@
 <?php
-    //require ("../Negocio/usuarioReglasNegocio.php");
+    require ("../logic/logInBusinessLaw.php");
 
     if($_SERVER["REQUEST_METHOD"]=="POST") {
-        $usuarioBL = new UsuarioReglasNegocio();
-        $perfil =  $usuarioBL->verificar($_POST['user'],$_POST['key']);
+        $logInBusinessLaw = new LogInBusinessLaw();
+        $profile_user =  $logInBusinessLaw->verifyUser($_POST['username'],$_POST['key_user']);
 
-        if($perfil==="Administrator") {
+        var_dump($_POST['username']);
+        var_dump($_POST['key_user']);
+        if($profile_user==="Administrator") {
             session_start();
-            $_SESSION['user'] = $_POST['user'];
+            $_SESSION['username'] = $_POST['username'];
             header("Location: menuStartAdminView.php");
-        } elseif($perfil==="Worker") {
+        } elseif($profile_user==="Worker") {
             session_start();
-            $_SESSION['user'] = $_POST['user'];
+            $_SESSION['username'] = $_POST['username'];
             header("Location: menuStartWorkerView.php");
         } else{
             $error = true;
@@ -34,12 +36,12 @@
                 <div class="title">Welcome</div>
                 <form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <input id="username" name = "username" type = "text" placeholder="Username">
-                    <input id = "password" name = "password" type = "password" placeholder="Password">
+                    <input id = "key_user" name = "key_user" type = "password" placeholder="Password">
                     <input id = "button" type = "submit" value="Submit">
                 </form> 
                 <?php
                     if(isset($error)) {
-                        echo $profile;
+                        echo $profile_user;
                     }
                 ?>               
             </div>
