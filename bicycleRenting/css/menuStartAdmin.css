@@ -2,3 +2,48 @@
     padding: 0%;
     margin: 0%;
 }
+body {
+    background-color: #F1E7D6;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#central {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2em;
+}
+
+.links a {
+    display: block;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    background-color: #ffd09a;
+    color: #4E4E4E;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+.links a:hover {
+    background-color: #ffbcdc;
+    color: #FFFFFF;
+}
+
+
