@@ -1,27 +1,27 @@
 <?php
-    require ("../logic/logInBusinessLaw.php");
+require("../logic/logInBusinessLaw.php");
 
-    if($_SERVER["REQUEST_METHOD"]=="POST") {
-        $logInBusinessLaw = new LogInBusinessLaw();
-        $profile_user =  $logInBusinessLaw->verifyUser($_POST['username'],$_POST['key_user']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $logInBusinessLaw = new LogInBusinessLaw();
+    $profile_user = $logInBusinessLaw->verifyUser($_POST['userId'], $_POST['keyUser']);
 
-        var_dump($_POST['username']);
-        var_dump($_POST['key_user']);
-        if($profile_user==="Administrator") {
-            session_start();
-            $_SESSION['username'] = $_POST['username'];
-            header("Location: menuStartAdminView.php");
-        } elseif($profile_user==="Worker") {
-            session_start();
-            $_SESSION['username'] = $_POST['username'];
-            header("Location: menuStartWorkerView.php");
-        } else{
-            $error = true;
-        }
+
+    if ($profileUser === "Administrator") {
+        session_start();
+        $_SESSION['userId'] = $_POST['userId'];
+        header("Location: menuStartAdminView.php");
+    } elseif ($profileUser === "Worker") {
+        session_start();
+        $_SESSION['userId'] = $_POST['userId'];
+        header("Location: menuStartWorkerView.php");
+    } else {
+        $error = true;
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,23 +29,25 @@
     <title>Log In</title>
     <link rel="stylesheet" href="../../css/logIn.css">
 </head>
+
 <body>
     <div id="container">
         <div id="central">
             <div id="start">
                 <div class="title">Welcome</div>
-                <form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input id="username" name = "username" type = "text" placeholder="Username">
-                    <input id = "key_user" name = "key_user" type = "password" placeholder="Password">
-                    <input id = "button" type = "submit" value="Submit">
-                </form> 
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <input id="userId" name="userId" type="text" placeholder="Username">
+                    <input id="keyUser" name="keyUser" type="password" placeholder="Password">
+                    <input id="button" type="submit" value="Submit">
+                </form>
                 <?php
-                    if(isset($error)) {
-                        echo $profile_user;
-                    }
-                ?>               
+                if (isset($error)) {
+                    echo $profileUser;
+                }
+                ?>
             </div>
         </div>
     </div>
 </body>
+
 </html>
