@@ -2,7 +2,7 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: loginVista.php");
+    header("Location: logInView.php");
 }
 ?>
 <!DOCTYPE html>
@@ -36,6 +36,7 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                 </div>
                 <div class="links">
                     <a href="createBookingView.php">Create booking</a>
+                    <a href="createClientView.php">Create client</a>
                     <a href="">Booking list</a>
                     <a href="">Bicycles</a>
                     <a href="">Bicycles routes</a>

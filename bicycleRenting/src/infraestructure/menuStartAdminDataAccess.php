@@ -16,7 +16,7 @@ class MenuStartAdminDataAccess
         }
 
         mysqli_select_db($connection, 'db_bicycle_renting');
-        $query = mysqli_prepare($connection, "SELECT T_Users.id_user, T_Users.name, T_Users.last_name, T_Users.profile_user FROM T_Users WHERE id_user = (?);");
+        $query = mysqli_prepare($connection, "SELECT T_Users.id_user, T_Users.name, T_Users.profile_user FROM T_Users WHERE id_user = (?);");
         $sanitizedUserId = mysqli_real_escape_string($connection, $userId);
         $query->bind_param("s", $sanitizedUserId);
         $query->execute();

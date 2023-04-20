@@ -3,8 +3,7 @@ require("../logic/logInBusinessLaw.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $logInBusinessLaw = new LogInBusinessLaw();
-    $profile_user = $logInBusinessLaw->verifyUser($_POST['userId'], $_POST['keyUser']);
-
+    $profileUser = $logInBusinessLaw->verifyUser($_POST['userId'], $_POST['keyUser']);
 
     if ($profileUser === "Administrator") {
         session_start();

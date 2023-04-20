@@ -3,7 +3,7 @@
 
     function test_alta_usuario() {
         $u = new LogInDataAccess();
-        return $u->addUser('MAPI000', 'Marilén', 'Pizà', '1234', 'Administrator');        
+        return $u->addUser('MAPI000', 'Marilén Pizà', '1234', 'Administrator');        
     }
 
     function test_verificar_usuario_encontrado() {

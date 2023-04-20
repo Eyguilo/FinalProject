@@ -2,12 +2,13 @@
 ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
-require_once("../infraestructure/menuStartAdminDataAccess.php");
+require_once("../infraestructure/createBookingDataAccess.php");
 
-class MenuStartAdminBusinessLaw
+class CreateBookingDataAccess
 {
     private $_USERID;
     private $_NAME;
+    private $_LASTNAME;
     private $_PROFILEUSER;
 
 
@@ -15,10 +16,11 @@ class MenuStartAdminBusinessLaw
     {
     }
 
-    private function init($userId, $name, $prfofileUser)
+    private function init($userId, $name, $lastName, $prfofileUser)
     {
         $this->_USERID = $userId;
         $this->_NAME = $name;
+        $this->_LASTNAME = $lastName;
         $this->_PROFILEUSER = $prfofileUser;
     }
 
@@ -30,6 +32,11 @@ class MenuStartAdminBusinessLaw
     public function getName()
     {
         return $this->_NAME;
+    }
+
+    public function getLastName()
+    {
+        return $this->_LASTNAME;
     }
 
     public function getProfileUser()
@@ -44,7 +51,7 @@ class MenuStartAdminBusinessLaw
 
         foreach ($dataObtained as $user) {
             $menuStartAdminBusinessLaw = new MenuStartAdminBusinessLaw();
-            $menuStartAdminBusinessLaw->init($user['id_user'], $user['name'], $user['profile_user']);
+            $menuStartAdminBusinessLaw->init($user['id_user'], $user['name'], $user['last_name'], $user['profile_user']);
         }
 
         return $menuStartAdminBusinessLaw;

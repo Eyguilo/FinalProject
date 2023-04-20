@@ -10,7 +10,7 @@ class LogInDataAccess
     {
     }
 
-    function addUser($userId, $name, $lastName, $key, $profileUser)
+    function addUser($userId, $name, $key, $profileUser)
     {
 
         $connection = mysqli_connect('localhost', 'root', '1234');
@@ -19,9 +19,9 @@ class LogInDataAccess
         }
 
         mysqli_select_db($connection, 'db_bicycle_renting');
-        $query = mysqli_prepare($connection, "INSERT INTO T_Users VALUES (?,?,?,?,?);");
+        $query = mysqli_prepare($connection, "INSERT INTO T_Users VALUES (?,?,?,?);");
         $hashKey = password_hash($key, PASSWORD_DEFAULT);
-        $query->bind_param("sssss", $userId, $name, $lastName, $hashKey, $profileUser);
+        $query->bind_param("ssss", $userId, $name, $hashKey, $profileUser);
         $result = $query->execute();
 
         return $result;

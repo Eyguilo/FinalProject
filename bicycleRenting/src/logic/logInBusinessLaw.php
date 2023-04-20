@@ -6,11 +6,11 @@ class LogInBusinessLaw
     function __construct()
     {
     }
-    function verifyUser($usename, $key)
+    function verifyUser($userId, $key)
     {
 
         $logInDataAccess = new LogInDataAccess();
-        $result = $logInDataAccess->verifyUser($usename, $key);
+        $result = $logInDataAccess->verifyUser($userId, $key);
         return $result;
     }
 }
