@@ -7,6 +7,7 @@ require_once("../infraestructure/createClientDataAccess.php");
 class CreateClientBusinessLaw
 {
     private $_NAME;
+    private $_LASTNAME;
     private $_EMAIL;
     private $_PHONE;
     private $_ADDRESS;
@@ -17,9 +18,10 @@ class CreateClientBusinessLaw
     {
     }
 
-    private function init($name, $email, $phone, $address)
+    private function init($name, $lastName, $email, $phone, $address)
     {
         $this->_NAME = $name;
+        $this->_LASTNAME = $lastName;
         $this->_EMAIL = $email;
         $this->_PHONE = $phone;
         $this->_ADDRESS = $address;
@@ -28,6 +30,11 @@ class CreateClientBusinessLaw
     public function getName()
     {
         return $this->_NAME;
+    }
+
+    public function getLastName()
+    {
+        return $this->_LASTNAME;
     }
 
     public function getEmail()
@@ -45,10 +52,10 @@ class CreateClientBusinessLaw
         return $this->_ADDRESS;
     }
 
-    public function createClient($name, $email, $phone, $address)
+    public function createClient($name, $lastName, $email, $phone, $address)
     {
         $createClientDataAccess = new CreateClientDataAccess();
-        $result = $createClientDataAccess->createClient($name, $email, $phone, $address);
+        $result = $createClientDataAccess->createClient($name, $lastName, $email, $phone, $address);
         return $result;
     }
 }

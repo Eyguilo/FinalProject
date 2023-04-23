@@ -30,7 +30,7 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                 <div class="logAs">Log as:
                     <?php echo $dataUser->getUserId() . " - " . $dataUser->getProfileUser() ?>
                 </div>
-                <a id="logOut" href="logOut.php"><div>Sign out</div></a>
+                <a id="logOut" href="logOutView.php"><div>Sign out</div></a>
                 <div class="title">Welcome
                     <?php echo $dataUser->getName(); ?>
                 </div>

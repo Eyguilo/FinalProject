@@ -10,7 +10,7 @@ class CreateClientDataAccess
     {
     }
 
-    function createClient($name, $email, $phone, $address)
+    function createClient($name, $lastName, $email, $phone, $address)
     {
 
         $connection = mysqli_connect('localhost', 'root', '1234');
@@ -19,8 +19,8 @@ class CreateClientDataAccess
         }
 
         mysqli_select_db($connection, 'db_bicycle_renting');
-        $query = mysqli_prepare($connection, "INSERT INTO T_Clients VALUES (?,?,?,?);");
-        $query->bind_param("ssss", $name, $email, $phone, $address);
+        $query = mysqli_prepare($connection, "INSERT INTO T_Clients (name, last_name, email, phone, address)VALUES (?,?,?,?,?);");
+        $query->bind_param("sssss", $name, $lastName, $email, $phone, $address);
         $result = $query->execute();
 
         return $result;

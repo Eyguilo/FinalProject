@@ -1,3 +1,10 @@
+<?php
+session_start();
+$userId = $_SESSION['userId'];
+if (!isset($userId)) {
+    header("Location: logInView.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
