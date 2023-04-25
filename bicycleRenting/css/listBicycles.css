@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 50px;
-    height: 80vh;
+    height: 93vh;
 }
 
 #central {
@@ -23,6 +23,7 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    overflow: auto;
 }
 
 .title {
@@ -32,39 +33,38 @@ body {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 20px;
+table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
 }
 
-label {
-    display: block;
+thead {
+    background-color: #007bff;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+thead th {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 5px;
+    text-align: left;
+    padding: 12px;
 }
 
-/* input[type="text"],
-input[type="password"],
-select,
-textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
+tbody tr:nth-child(even) {
     background-color: #f2f2f2;
-    font-size: 16px;
-    color: #333;
 }
 
-input[type="date"],
-input[type="time"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #f2f2f2;
+tbody tr:hover {
+    background-color: #dcdcdc;
+}
+
+tbody td {
     font-size: 16px;
-    color: #333;
+    padding: 12px;
 }
 
 input[type="submit"] {
@@ -80,4 +80,4 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #0069d9;
-} */
+}
