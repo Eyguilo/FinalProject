@@ -11,12 +11,12 @@ body {
 #container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding-top: 50px;
+    height: 80vh;
 }
 
 #central {
-    max-width: 600px;
+    max-width: 1800px;
     width: 100%;
     margin: 0 auto;
     background-color: #fff;
@@ -43,7 +43,7 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"],
+/* input[type="text"],
 input[type="password"],
 select,
 textarea {
@@ -80,4 +80,4 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #0069d9;
-}
+} */
