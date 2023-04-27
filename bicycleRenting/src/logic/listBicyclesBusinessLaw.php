@@ -6,75 +6,33 @@ require_once("../infraestructure/listBicyclesDataAccess.php");
 
 class ListBicyclesBusinessLaw
 {
-    private $_ID;
-    private $_BRAND;
-    private $_MODEL;
-    private $_SIZE;
-    private $_COLOR;
-    private $_PRICE;
-    private $_AVAILABLE;
-
-
-
     public function __construct()
     {
     }
 
-    private function init($id, $brand, $model, $size, $color, $price, $available)
+    public function findBicycles($filter)
     {
-        $this->_ID = $id;
-        $this->_BRAND = $brand;
-        $this->_MODEL = $model;
-        $this->_SIZE = $size;
-        $this->_COLOR = $color;
-        $this->_PRICE = $price;
-        $this->_AVAILABLE = $available;
-    }
 
-    public function getId()
-    {
-        return $this->_ID;
-    }
+        $query = "SELECT b.id_bicycle as id, br.name as brand, m.name as model, s.size_cm as size, b.color as color, b.rental_price_hour as price, b.available as available
+        FROM T_Bicycles b
+        INNER JOIN T_Brands br ON b.id_brand = br.id_brand
+        INNER JOIN T_Size s ON b.id_size = s.id_size
+        INNER JOIN T_Models m ON b.id_model = m.id_model WHERE 1=1";
 
-    public function getBrand()
-    {
-        return $this->_BRAND;
-    }
-
-    public function getModel()
-    {
-        return $this->_MODEL;
-    }
-
-    public function getSize()
-    {
-        return $this->_SIZE;
-    }
-
-    public function getColor()
-    {
-        return $this->_COLOR;
-    }
-
-    public function getPrice()
-    {
-        return $this->_PRICE;
-    }
-
-    public function getAvailable()
-    {
-        return $this->_AVAILABLE;
-    }
-
-    public function findBicyles()
-    {
-        $listBicyclesDataAccess = new ListBicyclesDataAccess();
-        $result = $listBicyclesDataAccess->findBicycles();
-
-        foreach ($result as $bike) {
-            $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
-            $listBicyclesBusinessLaw->init($bike['id'], $bike['brand'], $bike['model'], $bike['size'], $bike['color'], $bike['price'], $bike['available']);
+        if (!empty($filter[0])) {
+            $query .= " AND br.id_brand = " . $filter[0];
         }
+
+        if (!empty($filter[1])) {
+            $query .= " AND m.id_model = " . $filter[1];
+        }
+
+        if (!empty($filter[2])) {
+            $query .= " AND s.id_size = " . $filter[2];
+        }
+        $listBicyclesDataAccess = new ListBicyclesDataAccess();
+        $result = $listBicyclesDataAccess->findBicycles($query);
+
         return $result;
     }
 
@@ -83,10 +41,53 @@ class ListBicyclesBusinessLaw
         $listBicyclesDataAccess = new ListBicyclesDataAccess();
         $result = $listBicyclesDataAccess->findBrands();
 
-        $brands =  array();
+        $brands = array();
         while ($myrow = $result->fetch_row()) {
             array_push($brands, $myrow);
         }
         return $brands;
+    }
+
+    public function findModels()
+    {
+        $listBicyclesDataAccess = new ListBicyclesDataAccess();
+        $result = $listBicyclesDataAccess->findModels();
+
+        $models = array();
+        while ($myrow = $result->fetch_row()) {
+            array_push($models, $myrow);
+        }
+        return $models;
+    }
+
+    public function findSizes()
+    {
+        $listBicyclesDataAccess = new ListBicyclesDataAccess();
+        $result = $listBicyclesDataAccess->findSizes();
+
+        $sizes = array();
+        while ($myrow = $result->fetch_row()) {
+            array_push($sizes, $myrow);
+        }
+        return $sizes;
+    }
+
+    public function createFilter($brand, $model, $size)
+    {
+        $query = "SELECT * FROM T_Bicycles WHERE 1=1";
+
+        if (!empty($brand)) {
+            $query .= " AND id_brande = " . $brand;
+        }
+
+        if (!empty($model)) {
+            $query .= " AND id_model = " . $model;
+        }
+
+        if (!empty($size)) {
+            $query .= " AND id_size = " . $size;
+        }
+
+        return $query;
     }
 }

@@ -3,69 +3,148 @@ CREATE DATABASE db_bicycle_renting;
 USE db_bicycle_renting;
 
 CREATE TABLE T_Clients (
-  id_client INT(5) PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  phone VARCHAR(255) NOT NULL,
-  address VARCHAR(255)
+    id_client INT(5) PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    address VARCHAR(255)
 );
 
 CREATE TABLE T_Users (
-  id_user INT(5) PRIMARY KEY AUTO_INCREMENT,
-  name_user VARCHAR(255) NOT NULL,
-  key_user VARCHAR(255) NOT NULL,
-  profile VARCHAR(255) NOT NULL,
-  id_client INT NOT NULL,
-  FOREIGN KEY (id_client) REFERENCES T_Clients (id_client)
+    id_user VARCHAR(7) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    key_user VARCHAR(255) NOT NULL,
+    profile_user VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE T_Brands (
+    id_brand INT(5) PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE T_Size (
+    id_size INT(5) PRIMARY KEY AUTO_INCREMENT,
+    size_cm INT(5) NOT NULL
+);
+
+CREATE TABLE T_Models (
+    id_model INT(5) PRIMARY KEY AUTO_INCREMENT,
+    id_brand INT(5) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    FOREIGN KEY (id_brand)
+        REFERENCES T_Brands (id_brand)
 );
 
 CREATE TABLE T_Bicycles (
-  id_bicycle INT(5) PRIMARY KEY AUTO_INCREMENT,
-  brand VARCHAR(255) NOT NULL,
-  model VARCHAR(255) NOT NULL,
-  size VARCHAR(255) NOT NULL,
-  color VARCHAR(255),
-  rental_price_hour DECIMAL(6,2) NOT NULL
-);
-
-CREATE TABLE T_Bicycle_categories (
-  id_bicycle_category INT(5) PRIMARY KEY AUTO_INCREMENT,
-  name_category VARCHAR(255) NOT NULL,
-  description VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE T_Bicycles_by_category (
-  id_bicycle_by_category INT(5) PRIMARY KEY AUTO_INCREMENT,
-  id_bicycle INT(5) NOT NULL,
-  id_bicycle_category INT(5) NOT NULL,
-  FOREIGN KEY (id_bicycle) REFERENCES T_Bicycles (id_bicycle),
-  FOREIGN KEY (id_bicycle_category) REFERENCES T_Bicycle_categories (id_bicycle_category)
+    id_bicycle INT(5) PRIMARY KEY AUTO_INCREMENT,
+    id_brand INT(5) NOT NULL,
+    id_model INT(5) NOT NULL,
+    id_size INT(5) NOT NULL,
+    color VARCHAR(255),
+    rental_price_hour DECIMAL(6 , 2 ) NOT NULL,
+    available TINYINT(1) NOT NULL DEFAULT 1,
+    FOREIGN KEY (id_model)
+        REFERENCES T_Models (id_model),
+    FOREIGN KEY (id_brand)
+        REFERENCES T_Models (id_brand),
+    FOREIGN KEY (id_size)
+        REFERENCES T_Size (id_size)
 );
 
 CREATE TABLE T_Reservations (
-  id_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
-  id_client INT(5) NOT NULL,
-  id_user INT(5) NOT NULL,
-  start_date DATETIME NOT NULL,
-  end_date DATETIME NOT NULL,
-  total_price DECIMAL(6,2) NOT NULL,
-  FOREIGN KEY (id_client) REFERENCES T_Clients (id_client),
-  FOREIGN KEY (id_user) REFERENCES T_Users (id_user)
+    id_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
+    id_client INT(5) NOT NULL,
+    id_user VARCHAR(7) NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
+    total_price DECIMAL(6 , 2 ) NOT NULL,
+    FOREIGN KEY (id_client)
+        REFERENCES T_Clients (id_client),
+    FOREIGN KEY (id_user)
+        REFERENCES T_Users (id_user)
 );
 
 CREATE TABLE T_Bicycles_by_reservation (
-  id_bicycle_by_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
-  id_reservation INT(5) NOT NULL,
-  id_bicycle_by_category INT(5) NOT NULL,
-  FOREIGN KEY (id_reservation) REFERENCES T_Reservations (id_reservation),
-  FOREIGN KEY (id_bicycle_by_category) REFERENCES T_Bicycles_by_category (id_bicycle_by_category)
+    id_bicycle_by_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
+    id_reservation INT(5) NOT NULL,
+    id_bicycle INT(5) NOT NULL,
+    FOREIGN KEY (id_reservation)
+        REFERENCES T_Reservations (id_reservation),
+    FOREIGN KEY (id_bicycle)
+        REFERENCES T_Bicycles (id_bicycle)
 );
 
 CREATE TABLE T_Invoices (
-  id_invoice INT PRIMARY KEY AUTO_INCREMENT,
-  id_reservation INT NOT NULL,
-  issue_date DATETIME NOT NULL,
-  total_price DECIMAL(6,2) NOT NULL,
-  FOREIGN KEY (id_reservation) REFERENCES T_Reservations (id_reservation)
+    id_invoice INT PRIMARY KEY AUTO_INCREMENT,
+    id_reservation INT NOT NULL,
+    issue_date DATETIME NOT NULL,
+    total_price DECIMAL(6 , 2 ) NOT NULL,
+    FOREIGN KEY (id_reservation)
+        REFERENCES T_Reservations (id_reservation)
 );
+
+INSERT INTO T_Clients (name, last_name, email, phone, address) VALUES
+('John', 'Doe', 'johndoe@example.com', '123456789', '123 Main St.'),
+('Jane', 'Doe', 'janedoe@example.com', '987654321', '456 Oak St.'),
+('Bob', 'Smith', 'bobsmith@example.com', '555555555', '789 Elm St.'),
+('Alice', 'Johnson', 'alicejohnson@example.com', '111111111', '234 Maple St.'),
+('Mark', 'Davis', 'markdavis@example.com', '222222222', '567 Pine St.'),
+('Emily', 'Wilson', 'emilywilson@example.com', '333333333', '890 Cedar St.'),
+('David', 'Lee', 'davidlee@example.com', '444444444', '1234 Oakwood Ave.'),
+('Sarah', 'Kim', 'sarahkim@example.com', '777777777', '5678 Maplewood Blvd.'),
+('Michael', 'Brown', 'michaelbrown@example.com', '888888888', '9101 Elmwood Ln.'),
+('Jennifer', 'Smith', 'jennifersmith@example.com', '999999999', '2345 Pinewood Dr.');
+
+INSERT INTO T_Brands (name, description)
+VALUES ('Trek' ,'Marca estadounidense de bicicletas conocida por su tecnología innovadora y diseños de alta calidad'), 
+('Specialized', 'Marca estadounidense de bicicletas especializada en bicicletas de carretera y montaña de alta gama'), 
+('Giant', 'Marca taiwanesa de bicicletas con una amplia variedad de modelos y precios para ciclistas de todos los niveles'), 
+('Cannondale', 'Marca estadounidense de bicicletas conocida por sus diseños innovadores y tecnología avanzada');
+
+INSERT INTO T_Models (id_brand, name, description)
+VALUES (1, 'X-Caliber', 'Una bicicleta de montaña resistente y ágil para todo tipo de terrenos'), 
+(1, 'Fuel EX', 'Una bicicleta de trail de doble suspensión diseñada para recorrer senderos técnicos con confianza y velocidad'), 
+(2, 'Roubaix', 'Una bicicleta de carretera cómoda y rápida para largas distancias y terrenos variados'), 
+(2, 'Diverge', 'Una bicicleta de aventura versátil que puede recorrer caminos de grava, terrenos escarpados y carreteras'),
+(3, 'Defy', 'Una bicicleta de carretera de resistencia que ofrece una conducción cómoda y estable durante largas distancias'), 
+(3, 'TCR', 'Una bicicleta de carretera de alta gama para competiciones y carreras'), 
+(4, 'Topstone', 'Una bicicleta de grava de alto rendimiento con suspensión que ofrece una conducción cómoda y estable en terrenos difíciles'), 
+(4, 'Synapse', 'Una bicicleta de carretera versátil y cómoda que ofrece un rendimiento de alta calidad para todo tipo de ciclistas');
+       
+INSERT INTO T_Size (size_cm)
+SELECT size FROM
+     (SELECT '150' AS size UNION ALL SELECT '160'
+      UNION ALL SELECT '170' UNION ALL SELECT '180'
+      UNION ALL SELECT '190' UNION ALL SELECT '200') s;
+
+
+
+INSERT INTO T_Bicycles (id_brand, id_model, id_size, color, rental_price_hour)
+SELECT b.id_brand, m.id_model, s.id_size, c.color,
+       CASE
+         WHEN b.name = 'Trek' THEN 100
+         WHEN b.name = 'Specialized' THEN 120
+         WHEN b.name = 'Giant' THEN 90
+         WHEN b.name = 'Cannondale' THEN 80
+         ELSE 0
+       END * 
+       CASE
+         WHEN m.name LIKE '%Mountain%' THEN 1.35
+         WHEN m.name LIKE '%Road%' THEN 1.45
+         WHEN m.name LIKE '%City%' THEN 1.2
+         WHEN m.name LIKE '%Electric%' THEN 1.25
+         ELSE 1
+       END *
+       CASE
+         WHEN s.size_cm > 150 AND s.size_cm % 10 = 0 THEN 1.03
+         ELSE 1
+       END AS price
+FROM T_Brands b, T_Models m, T_Size s, 
+     (SELECT 'Blue' AS color UNION ALL SELECT 'Black' UNION ALL SELECT 'White'
+      UNION ALL SELECT 'Green' UNION ALL SELECT 'Grey') c
+ORDER BY RAND()
+LIMIT 200;

@@ -6,7 +6,18 @@ if (!isset($userId)) {
 }
 
 require_once("../logic/listBicyclesBusinessLaw.php");
-$listBicyclesDataAccess = new ListBicyclesBusinessLaw();
+$listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
+    $filterData = array($_POST['brand'], $_POST['model'], $_POST['size']);
+    $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($filterData);
+} else {
+    $falseFilter = "";
+    $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($falseFilter);
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -30,60 +41,74 @@ $listBicyclesDataAccess = new ListBicyclesBusinessLaw();
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>
-                                    <label for="brand">Brand:</label>
-                                    <select id="brand" name="brand">
-                                        <?php
-                                        $resultBrands = $listBicyclesDataAccess->findBrands();
-
-                                        var_dump($resultBrands);
-                                        foreach($resultBrands as $brand){
-                                            
-                                            echo "<option value='1'>". $brand[0]."</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </th>
-                                <th>
-                                    <label for="brand">Model:</label>
-                                    <select id="brand" name="brand">
-                                        <?php
-                                        echo '<option value="1">Brand 1</option>';
-                                        echo '<option value="2">Brand 2</option>';
-                                        echo '<option value="3">Brand 3</option>';
-                                        ?>
-                                    </select>
-                                </th>
-                                <th>
-                                    <label for="brand">Size:</label>
-                                    <select id="brand" name="brand">
-                                        <?php
-                                        echo '<option value="1">Brand 1</option>';
-                                        echo '<option value="2">Brand 2</option>';
-                                        echo '<option value="3">Brand 3</option>';
-                                        ?>
-                                    </select>
-                                </th>
-                                <th>
-                                    <label for="brand">Color</label>
-                                </th>
-                                <th>
-                                    <label for="brand">Price / hour</label>
-                                </th>
-                                <th>
-                                    <label for="brand">Available</label>
-                                </th>
-                                <th>
-                                    <label for="brand">Reserve</label>
-                                </th>
+                                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                    <th>
+                                        <label for="brand">Brand:</label>
+                                        <select id="brand" name="brand" onchange="this.form.submit()">
+                                            <?php
+                                            $resultBrands = $listBicyclesBusinessLaw->findBrands();
+                                            $valueBrand = 1;
+                                            $selectedBrand = isset($_POST['brand']) ? $_POST['brand'] : "";
+                                            echo "<option value='' selected>Select a brand</option>";
+                                            foreach ($resultBrands as $brand) {
+                                                $selected = ($selectedBrand == $valueBrand) ? "selected" : "";
+                                                echo "<option value='" . $valueBrand . "' " . $selected . ">" . $brand[0] . "</option>";
+                                                $valueBrand++;
+                                            }
+                                            ?>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <label for="model">Model:</label>
+                                        <select id="model" name="model" onchange="this.form.submit()">
+                                            <?php
+                                            $resultModels = $listBicyclesBusinessLaw->findModels();
+                                            $valueModel = 1;
+                                            $selectedModel = isset($_POST['model']) ? $_POST['model'] : "";
+                                            echo "<option value='' selected>Select a model</option>";
+                                            foreach ($resultModels as $model) {
+                                                $selected = ($selectedModel == $valueModel) ? "selected" : "";
+                                                echo "<option value='" . $valueModel . "' " . $selected . ">" . $model[0] . "</option>";
+                                                $valueModel++;
+                                            }
+                                            ?>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <label for="size">Size:</label>
+                                        <select id="size" name="size" onchange="this.form.submit()">
+                                            <?php
+                                            $resultsizes = $listBicyclesBusinessLaw->findSizes();
+                                            $valueSize = 1;
+                                            $selectedSize = isset($_POST['size']) ? $_POST['size'] : "";
+                                            echo "<option value='' selected>Select a size</option>";
+                                            foreach ($resultsizes as $size) {
+                                                $selected = ($selectedSize == $valueSize) ? "selected" : "";
+                                                echo "<option value='" . $valueSize . "' " . $selected . ">" . $size[0] . "</option>";
+                                                $valueSize++;
+                                            }
+                                            ?>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <label for="brand">Color</label>
+                                    </th>
+                                    <th>
+                                        <label for="brand">Price / hour</label>
+                                    </th>
+                                    <th>
+                                        <label for="brand">Available</label>
+                                    </th>
+                                    <th>
+                                        <label for="brand">Reserve</label>
+                                    </th>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
 
-                            $resultBicyles = $listBicyclesDataAccess->findBicyles();
-
-                            foreach ($resultBicyles as $bike) {
+                            foreach ($filteredBicycles as $bike) {
 
                                 echo "
                                         <tr>
