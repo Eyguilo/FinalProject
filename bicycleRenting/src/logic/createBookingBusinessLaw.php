@@ -4,56 +4,31 @@ ini_set('html_errors', 1);
 
 require_once("../infraestructure/createBookingDataAccess.php");
 
-class CreateBookingDataAccess
+class CreateBookingBusinessLaw
 {
-    private $_USERID;
-    private $_NAME;
-    private $_LASTNAME;
-    private $_PROFILEUSER;
-
 
     public function __construct()
     {
     }
 
-    private function init($userId, $name, $lastName, $prfofileUser)
-    {
-        $this->_USERID = $userId;
-        $this->_NAME = $name;
-        $this->_LASTNAME = $lastName;
-        $this->_PROFILEUSER = $prfofileUser;
-    }
 
-    public function getUserId()
+    public function findClients($completeName)
     {
-        return $this->_USERID;
-    }
 
-    public function getName()
-    {
-        return $this->_NAME;
-    }
+        $nameParts = explode(" ", $completeName);
+        $name = $nameParts[0];
+        $lastName = $nameParts[1];
 
-    public function getLastName()
-    {
-        return $this->_LASTNAME;
-    }
+        $createBookingDataAccess = new CreateBookingDataAccess();
+        $createBookingDataAccess->findClients($name, $lastName);
 
-    public function getProfileUser()
-    {
-        return $this->_PROFILEUSER;
-    }
+        echo var_dump($dataObtained);
 
-    public function obtainUserData($userId)
-    {
-        $menuStartAdminDataAccess = new MenuStartAdminDataAccess();
-        $dataObtained = $menuStartAdminDataAccess->obtainUserData($userId);
-
-        foreach ($dataObtained as $user) {
-            $menuStartAdminBusinessLaw = new MenuStartAdminBusinessLaw();
-            $menuStartAdminBusinessLaw->init($user['id_user'], $user['name'], $user['last_name'], $user['profile_user']);
+        $clientsName = array();
+        while ($myrow = $createBookingDataAccess->mysqli_fetch_row()) {
+            array_push($clientsName, $myrow);
         }
 
-        return $menuStartAdminBusinessLaw;
+        return $clientsName;
     }
 }

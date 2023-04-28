@@ -4,6 +4,8 @@ $userId = $_SESSION['userId'];
 if (!isset($userId)) {
     header("Location: logInView.php");
 }
+
+require_once("../logic/createBookingBusinessLaw.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,26 +25,15 @@ if (!isset($userId)) {
                 <div class="title">Create Booking</div>
                 <form method="POST" action="createBookingView.php">
                     <div class="form-group">
+                        <div class="form-group">
+                            <label for="worker">Worker: <?php echo $userId; ?></label>
+
+                        </div>
                         <label for="client">Client:</label>
                         <select id="client" name="client">
                             <?php
                             // Aquí podrías realizar una consulta a la base de datos
                             // para obtener los clientes y mostrarlos en el dropdown
-                            echo '<option value="1">Cliente 1</option>';
-                            echo '<option value="2">Cliente 2</option>';
-                            echo '<option value="3">Cliente 3</option>';
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="worker">Worker:</label>
-                        <select id="worker" name="worker">
-                            <?php
-                            // Aquí podrías realizar una consulta a la base de datos
-                            // para obtener los trabajadores y mostrarlos en el dropdown
-                            echo '<option value="1">Worker 1</option>';
-                            echo '<option value="2">Worker 2</option>';
-                            echo '<option value="3">Worker 3</option>';
                             ?>
                         </select>
                     </div>
