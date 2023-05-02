@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 'On');
+ini_set('html_errors', 1);
+
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
@@ -6,6 +9,8 @@ if (!isset($userId)) {
 }
 
 require_once("../logic/createBookingBusinessLaw.php");
+$createBookingBusinessLaw = new CreateBookingBusinessLaw();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,17 +30,16 @@ require_once("../logic/createBookingBusinessLaw.php");
                 <div class="title">Create Booking</div>
                 <form method="POST" action="createBookingView.php">
                     <div class="form-group">
-                        <div class="form-group">
-                            <label for="worker">Worker: <?php echo $userId; ?></label>
-
-                        </div>
-                        <label for="client">Client:</label>
-                        <select id="client" name="client">
-                            <?php
-                            // Aquí podrías realizar una consulta a la base de datos
-                            // para obtener los clientes y mostrarlos en el dropdown
-                            ?>
+                        <label>Worker:
+                            <?php echo $userId; ?>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientName">Client:</label>
+                        <input type="text" id="clientName" name="clientName">
+                        <select id="clientList" name="clientList">
                         </select>
+
                     </div>
                     <div class="form-group">
                         <label for="startDate">Start date:</label>
@@ -70,6 +74,7 @@ require_once("../logic/createBookingBusinessLaw.php");
             </div>
         </div>
     </div>
+    <script src="../js/findClients.js"></script>
 </body>
 
 </html>

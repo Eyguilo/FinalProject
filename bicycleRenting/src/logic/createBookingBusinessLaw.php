@@ -11,24 +11,4 @@ class CreateBookingBusinessLaw
     {
     }
 
-
-    public function findClients($completeName)
-    {
-
-        $nameParts = explode(" ", $completeName);
-        $name = $nameParts[0];
-        $lastName = $nameParts[1];
-
-        $createBookingDataAccess = new CreateBookingDataAccess();
-        $createBookingDataAccess->findClients($name, $lastName);
-
-        echo var_dump($dataObtained);
-
-        $clientsName = array();
-        while ($myrow = $createBookingDataAccess->mysqli_fetch_row()) {
-            array_push($clientsName, $myrow);
-        }
-
-        return $clientsName;
-    }
 }
