@@ -5,11 +5,10 @@ ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
 if (isset($_REQUEST['name'])) {
-    $source = $_REQUEST['name'];
-    $nameParts = explode(" ", $source);
-    $name = $nameParts[0];
-    if($nameParts[1] !== ""){
-        $lastName = $nameParts[1];
+    $name = $_REQUEST['name'];
+
+    if($_REQUEST['lastName'] !== ""){
+        $lastName = $_REQUEST['lastName'];
     } else{
         $lastName = "";
     }
@@ -21,7 +20,7 @@ if (mysqli_connect_errno()) {
 }
 
 mysqli_select_db($connection, 'db_bicycle_renting');
-$query = mysqli_prepare($connection, "SELECT c.id_client, CONCAT(c.name, ' ', c.last_name) as complete_name FROM T_Clients c WHERE c.name LIKE ? AND c.last_name LIKE ?;");
+$query = mysqli_prepare($connection, "SELECT c.id_client, c.name, c.last_name FROM T_Clients c WHERE c.name LIKE ? AND c.last_name LIKE ?;");
 $nameParam = "%" . $name . "%";
 $lastNameParam = "%" . $lastName . "%";
 $query->bind_param("ss", $nameParam, $lastNameParam);

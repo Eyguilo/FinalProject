@@ -5,6 +5,15 @@ function findClients() {
 
     const fullName = input.value.trim();
 
+    let name = "";
+    let lastName = "";
+    
+    const nameParts = fullName.split(" ");
+    if (nameParts.length > 0) {
+        name = nameParts[0];
+        lastName = nameParts.slice(1).join(" ");
+    }
+
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -23,7 +32,7 @@ function findClients() {
 
             for (let i = 0; i < arrayClients.length; i++) {
                 let opt = document.createElement("option");
-                opt.textContent = arrayClients[i]["complete_name"];
+                opt.textContent = arrayClients[i]["name"] + " " +arrayClients[i]["last_name"];
                 opt.setAttribute("value", arrayClients[i]["id_client"]);
                 sel.appendChild(opt);
             }
@@ -31,7 +40,7 @@ function findClients() {
     };
 
     xmlhttp.open(
-        "GET", `../infraestructure/onlyFindClientsDataAccess.php?name=${fullName}`, true
+        "GET", `../infraestructure/onlyFindClientsDataAccess.php?name=${name}&lastName=${lastName}`, true
     );
     xmlhttp.send();
 }

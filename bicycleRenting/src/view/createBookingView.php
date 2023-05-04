@@ -36,10 +36,10 @@ $createBookingBusinessLaw = new CreateBookingBusinessLaw();
                     </div>
                     <div class="form-group">
                         <label for="clientName">Client:</label>
-                        <input type="text" id="clientName" name="clientName">
+                        <input type="text" id="clientName" name="clientName" autocomplete="off"><br><br>
                         <select id="clientList" name="clientList">
+                            <option value="" selected>Select a client</option>
                         </select>
-
                     </div>
                     <div class="form-group">
                         <label for="startDate">Start date:</label>
@@ -74,6 +74,7 @@ $createBookingBusinessLaw = new CreateBookingBusinessLaw();
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/findClients.js"></script>
 </body>
 
