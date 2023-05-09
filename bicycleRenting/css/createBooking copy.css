@@ -15,6 +15,11 @@ body {
     height: 100vh;
 }
 
+#centralBooking {
+    float: left;
+    width: 50%;
+}
+
 #central {
     max-width: 600px;
     width: 100%;
@@ -23,7 +28,11 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    float: left;
+    width: 50%;
 }
+
+
 
 .title {
     font-size: 30px;

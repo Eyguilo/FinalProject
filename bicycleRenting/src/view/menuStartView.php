@@ -12,14 +12,14 @@ if (!isset($userId)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrator menu</title>
-    <link rel="stylesheet" href="../../css/menuStartAdmin.css">
+    <title>Menu</title>
+    <link rel="stylesheet" href="../../css/menuStart.css">
 </head>
 
 <?php
-require_once("../logic/menuStartAdminBusinessLaw.php");
+require_once("../logic/menuStartBusinessLaw.php");
 
-$menuStartAdminBusinessLaw = new MenuStartAdminBusinessLaw();
+$menuStartAdminBusinessLaw = new MenuStartBusinessLaw();
 $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
 ?>
 
@@ -30,7 +30,9 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                 <div class="logAs">Log as:
                     <?php echo $dataUser->getUserId() . " - " . $dataUser->getProfileUser() ?>
                 </div>
-                <a id="logOut" href="logOutView.php"><div>Sign out</div></a>
+                <a id="logOut" href="logOutView.php">
+                    <div>Sign out</div>
+                </a>
                 <div class="title">Welcome
                     <?php echo $dataUser->getName(); ?>
                 </div>
@@ -41,7 +43,11 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                     <a href="listBicyclesView.php">Bicycles</a>
                     <a href="">Bicycles routes</a>
                     <a href="">Our shops</a>
-                    <a href="">Create user</a>
+                    <?php
+                    if ($dataUser->getProfileUser() === "Administrator") {
+                        echo "<a href=''>Create user</a>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>

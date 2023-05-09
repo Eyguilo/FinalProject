@@ -27,6 +27,9 @@ $createBookingBusinessLaw = new CreateBookingBusinessLaw();
     <div id="container">
         <div id="central">
             <div id="create">
+                <div id="back-button">
+                    <a href="menuStartView.php">Home</a>
+                </div>
                 <div class="title">Create Booking</div>
                 <form method="POST" action="createBookingView.php">
                     <div class="form-group">
@@ -36,7 +39,7 @@ $createBookingBusinessLaw = new CreateBookingBusinessLaw();
                     </div>
                     <div class="form-group">
                         <label for="clientName">Client:</label>
-                        <input type="text" id="clientName" name="clientName" autocomplete="off"><br><br>
+                        <input type="text" id="clientName" name="clientName" autocomplete="off" placeholder="ex. Jaume Aguiló"><br><br>
                         <select id="clientList" name="clientList">
                             <option value="" selected>Select a client</option>
                         </select>
@@ -75,7 +78,7 @@ $createBookingBusinessLaw = new CreateBookingBusinessLaw();
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../js/findClients.js"></script>
+    <script src="../../js/findClients.js"></script>
 </body>
 
 </html>

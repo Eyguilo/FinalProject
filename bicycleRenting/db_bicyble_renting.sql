@@ -8,7 +8,8 @@ CREATE TABLE T_Clients (
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NOT NULL,
-    address VARCHAR(255)
+    address VARCHAR(255) NOT NULL,
+    postal_code INT(5) NOT NULL
 );
 
 CREATE TABLE T_Users (
@@ -71,10 +72,19 @@ CREATE TABLE T_Reservations (
 CREATE TABLE T_Bicycles_by_reservation (
     id_bicycle_by_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
     id_reservation INT(5) NOT NULL,
-    id_bicycle INT(5) NOT NULL,
+    id_bicycle_1 INT(5) NOT NULL,
+    id_bicycle_2 INT(5) NOT NULL,
+    id_bicycle_3 INT(5) NOT NULL,
+    id_bicycle_4 INT(5) NOT NULL,
     FOREIGN KEY (id_reservation)
         REFERENCES T_Reservations (id_reservation),
-    FOREIGN KEY (id_bicycle)
+    FOREIGN KEY (id_bicycle_1)
+        REFERENCES T_Bicycles (id_bicycle),
+    FOREIGN KEY (id_bicycle_2)
+        REFERENCES T_Bicycles (id_bicycle),
+    FOREIGN KEY (id_bicycle_3)
+        REFERENCES T_Bicycles (id_bicycle),
+    FOREIGN KEY (id_bicycle_4t_reservations)
         REFERENCES T_Bicycles (id_bicycle)
 );
 
@@ -87,17 +97,17 @@ CREATE TABLE T_Invoices (
         REFERENCES T_Reservations (id_reservation)
 );
 
-INSERT INTO T_Clients (name, last_name, email, phone, address) VALUES
-('John', 'Doe', 'johndoe@example.com', '123456789', '123 Main St.'),
-('Jane', 'Doe', 'janedoe@example.com', '987654321', '456 Oak St.'),
-('Bob', 'Smith', 'bobsmith@example.com', '555555555', '789 Elm St.'),
-('Alice', 'Johnson', 'alicejohnson@example.com', '111111111', '234 Maple St.'),
-('Mark', 'Davis', 'markdavis@example.com', '222222222', '567 Pine St.'),
-('Emily', 'Wilson', 'emilywilson@example.com', '333333333', '890 Cedar St.'),
-('David', 'Lee', 'davidlee@example.com', '444444444', '1234 Oakwood Ave.'),
-('Sarah', 'Kim', 'sarahkim@example.com', '777777777', '5678 Maplewood Blvd.'),
-('Michael', 'Brown', 'michaelbrown@example.com', '888888888', '9101 Elmwood Ln.'),
-('Jennifer', 'Smith', 'jennifersmith@example.com', '999999999', '2345 Pinewood Dr.');
+INSERT INTO T_Clients (name, last_name, email, phone, address, postal_code) VALUES
+('John', 'Doe', 'johndoe@example.com', '123-456-789', '123 Main St.', 56743),
+('Jane', 'Doe', 'janedoe@example.com', '987-654-321', '456 Oak St.', 56743),
+('Bob', 'Smith', 'bobsmith@example.com', '555-555-555', '789 Elm St.', 56743),
+('Alice', 'Johnson', 'alicejohnson@example.com', '111-111-111', '234 Maple St.', 56743),
+('Mark', 'Davis', 'markdavis@example.com', '222-222-222', '567 Pine St.', 56743),
+('Emily', 'Wilson', 'emilywilson@example.com', '333-333-333', '890 Cedar St.', 56743),
+('David', 'Lee', 'davidlee@example.com', '444-444-444', '1234 Oakwood Ave.', 56743),
+('Sarah', 'Kim', 'sarahkim@example.com', '777-777-777', '5678 Maplewood Blvd.', 56743),
+('Michael', 'Brown', 'michaelbrown@example.com', '888-888-888', '9101 Elmwood Ln.', 56743),
+('Jennifer', 'Smith', 'jennifersmith@example.com', '999-999-999', '2345 Pinewood Dr.', 56743);
 
 INSERT INTO T_Brands (name, description)
 VALUES ('Trek' ,'Marca estadounidense de bicicletas conocida por su tecnología innovadora y diseños de alta calidad'), 

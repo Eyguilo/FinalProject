@@ -2,9 +2,9 @@
 ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
-require_once("../infraestructure/menuStartAdminDataAccess.php");
+require_once("../infraestructure/menuStartDataAccess.php");
 
-class MenuStartAdminBusinessLaw
+class MenuStartBusinessLaw
 {
     private $_USERID;
     private $_NAME;
@@ -39,11 +39,11 @@ class MenuStartAdminBusinessLaw
 
     public function obtainUserData($userId)
     {
-        $menuStartAdminDataAccess = new MenuStartAdminDataAccess();
+        $menuStartAdminDataAccess = new MenuStartDataAccess();
         $dataObtained = $menuStartAdminDataAccess->obtainUserData($userId);
 
         foreach ($dataObtained as $user) {
-            $menuStartAdminBusinessLaw = new MenuStartAdminBusinessLaw();
+            $menuStartAdminBusinessLaw = new MenuStartBusinessLaw();
             $menuStartAdminBusinessLaw->init($user['id_user'], $user['name'], $user['profile_user']);
         }
 

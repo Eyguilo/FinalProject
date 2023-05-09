@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_POST['email'],
         $_POST['phone'],
         $_POST['address'],
+        $_POST['postalCode']
     );
 
     header("Location: menuStartAdminView.php");
@@ -35,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="container">
         <div id="central">
             <div id="create">
+                <div id="back-button">
+                    <a href="menuStartView.php">Home</a>
+                </div>
                 <div class="title">Create client</div>
                 <form method="POST" action="createClientView.php">
                     <div class="form-group">
@@ -53,11 +57,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <label for="phone">Phone:</label>
                         <input type="tel" id="phone" name="phone" pattern="(\+[0-9]{2,3} )?[0-9]{3}-[0-9]{3}-[0-9]{3}"
-                            placeholder="+34 XXX-XXX-XXX" required autocomplete="off">
+                            placeholder="(+34) 695-652-874" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="address">Address:</label>
                         <input type="text" id="address" name="address" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="postalCode">Postal code:</label>
+                        <input type="text" id="postalCode" name="postalCode" autocomplete="off" pattern="[0-9]{5}"
+                            placeholder="07180" required autocomplete="off">
                     </div>
                     <input type="submit" value="Create client">
                 </form>

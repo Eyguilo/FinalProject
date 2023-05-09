@@ -5,14 +5,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $logInBusinessLaw = new LogInBusinessLaw();
     $profileUser = $logInBusinessLaw->verifyUser($_POST['userId'], $_POST['keyUser']);
 
-    if ($profileUser === "Administrator") {
+    if ($profileUser === "Administrator" || $profileUser === "Worker") {
         session_start();
         $_SESSION['userId'] = $_POST['userId'];
-        header("Location: menuStartAdminView.php");
-    } elseif ($profileUser === "Worker") {
-        session_start();
-        $_SESSION['userId'] = $_POST['userId'];
-        header("Location: menuStartWorkerView.php");
+        header("Location: menuStartView.php");
     } else {
         $error = true;
     }
