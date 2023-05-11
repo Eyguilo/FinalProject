@@ -9,12 +9,16 @@ require_once("../logic/listBicyclesBusinessLaw.php");
 $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
-    $filterData = array($_POST['brand'], $_POST['model'], $_POST['size']);
+    $filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
     $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($filterData);
+
 } else {
+
     $falseFilter = "";
     $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($falseFilter);
+
 }
 
 
@@ -71,15 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="form-group">
                         <label for="bicycle">Bicycle:</label>
-                        <select id="bicycle" name="bicycle">
-                            <?php
-                            // Aquí podrías realizar una consulta a la base de datos
-                            // para obtener las bicicletas y mostrarlas en el dropdown
-                            echo '<option value="1">Bicycle 1</option>';
-                            echo '<option value="2">Bicycle 2</option>';
-                            echo '<option value="3">Bicycle 3</option>';
-                            ?>
-                        </select>
+                        <input type="text" id="bicycle" name="bicycle">
                     </div>
                     <input type="submit" value="Create booking">
                 </form>
@@ -131,11 +127,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="size">Size:</label>
                                         <select id="size" name="size" onchange="this.form.submit()">
                                             <?php
-                                            $resultsizes = $listBicyclesBusinessLaw->findSizes();
+                                            $resultSizes = $listBicyclesBusinessLaw->findSizes();
                                             $valueSize = 1;
                                             $selectedSize = isset($_POST['size']) ? $_POST['size'] : "";
                                             echo "<option value='' selected>Select a size</option>";
-                                            foreach ($resultsizes as $size) {
+                                            foreach ($resultSizes as $size) {
                                                 $selected = ($selectedSize == $valueSize) ? "selected" : "";
                                                 echo "<option value='" . $valueSize . "' " . $selected . ">" . $size[0] . "</option>";
                                                 $valueSize++;
@@ -150,7 +146,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="brand">Price / hour</label>
                                     </th>
                                     <th>
-                                        <label for="brand">Available</label>
+                                        <label for="available">Available</label>
+                                        <select id="available" name="available" onchange="this.form.submit()">
+                                            <?php
+                                            $selectedAvailable = isset($_POST['available']) ? $_POST['available'] : "";
+                                            echo "<option value='' selected>Select available</option>";
+                                            echo "<option value='1' " . ($selectedAvailable == '1' ? 'selected' : '') . ">Available</option>";
+                                            echo "<option value='0' " . ($selectedAvailable == '0' ? 'selected' : '') . ">Not available</option>";
+                                            ?>
+                                        </select>
                                     </th>
                                     <th>
                                         <label for="brand">Reserve</label>
@@ -160,24 +164,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </thead>
                         <tbody>
                             <?php
-
                             foreach ($filteredBicycles as $bike) {
 
                                 echo "
-                                        <tr>
-                                            <td>" . $bike['id'] . "</td>
-                                            <td>" . $bike['brand'] . "</td>
-                                            <td>" . $bike['model'] . "</td>
-                                            <td>" . $bike['size'] . "</td>
-                                            <td>" . $bike['color'] . "</td>
-                                            <td>" . $bike['price'] . "</td>
-                                            <td>" . $bike['available'] . "</td>
-                                            <td>.WORKING ON IT.</td>
-                                        </tr>";
+                                    <tr>
+                                        <td>" . $bike['id'] . "</td>
+                                        <td>" . $bike['brand'] . "</td>
+                                        <td>" . $bike['model'] . "</td>
+                                        <td>" . $bike['size'] . "</td>
+                                        <td>" . $bike['color'] . "</td>
+                                        <td>" . $bike['price'] . "</td>
+                                        <td>" . $bike['available'] . "</td>
+                                        <td><input type='checkbox' onchange='updateAvailability(this, " . $bike['id'] . " )'></td>
+                                    </tr>";
                             }
 
                             ?>
-
                         </tbody>
                     </table>
                 </div>

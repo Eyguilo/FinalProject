@@ -30,6 +30,12 @@ class ListBicyclesBusinessLaw
         if (!empty($filter[2])) {
             $query .= " AND s.id_size = " . $filter[2];
         }
+
+        if ($filter[3] == 1 || $filter[3] == 0) {
+            $query .= " AND b.available = " . $filter[3];
+        }
+
+        var_dump($query);
         $listBicyclesDataAccess = new ListBicyclesDataAccess();
         $result = $listBicyclesDataAccess->findBicycles($query);
 
@@ -72,7 +78,7 @@ class ListBicyclesBusinessLaw
         return $sizes;
     }
 
-    public function createFilter($brand, $model, $size)
+    public function createFilter($brand, $model, $size, $available)
     {
         $query = "SELECT * FROM T_Bicycles WHERE 1=1";
 
@@ -86,6 +92,10 @@ class ListBicyclesBusinessLaw
 
         if (!empty($size)) {
             $query .= " AND id_size = " . $size;
+        }
+
+        if (!empty($available)) {
+            $query .= " AND available = " . $available;
         }
 
         return $query;
