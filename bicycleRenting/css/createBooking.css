@@ -11,18 +11,31 @@ body {
 #container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding-top: 100px;
+    height: 93vh;
 }
 
-#central {
-    max-width: 600px;
+#centralBooking {
+    max-width: 500px;
     width: 100%;
     margin: 0 auto;
+    margin-left: 150px;
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+
+}
+
+#centralList {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    margin-right: 130px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    overflow: auto;
 }
 
 .title {
@@ -32,8 +45,49 @@ body {
     margin-bottom: 20px;
 }
 
-.form-group {
+table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+thead {
+    background-color: #007bff;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+thead th {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    padding: 12px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #dcdcdc;
+}
+
+tbody td {
+    font-size: 16px;
+    padding: 12px;
+}
+
+.form-group,
+.form-group-2 {
     margin-bottom: 20px;
+}
+
+.form-group-2 {
+    width: 70px;
+    float: left;
+    margin-right: 40px;
 }
 
 label {
@@ -86,6 +140,7 @@ input[type="submit"]:hover {
     position: absolute;
     top: 30px;
     left: 30px;
+    width: 100px;
 }
 
 #back-button a {

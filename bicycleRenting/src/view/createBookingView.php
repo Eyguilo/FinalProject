@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List bicycles</title>
-    <link rel="stylesheet" href="../../css/createBooking copy.css">
+    <link rel="stylesheet" href="../../css/createBooking.css">
 </head>
 
 <body>
@@ -73,9 +73,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="endTime">End time:</label>
                         <input type="time" id="endTime" name="endTime">
                     </div>
-                    <div class="form-group">
-                        <label for="bicycle">Bicycle:</label>
-                        <input type="text" id="bicycle" name="bicycle">
+                    <div class="form-group-2">
+                        <label for="bicycle1">Bicycle 1:</label>
+                        <input type="text" id="bicycle1" name="bicycle1" autocomplete="off"
+                            placeholder="1">
+                    </div>
+
+                    <div class="form-group-2">
+                        <label for="bicycle2">Bicycle 2:</label>
+                        <input type="text" id="bicycle2" name="bicycle2" autocomplete="off"
+                            placeholder="2">
+                    </div>
+
+                    <div class="form-group-2">
+                        <label for="bicycle3">Bicycle 3:</label>
+                        <input type="text" id="bicycle3" name="bicycle3" autocomplete="off"
+                            placeholder="3">
+                    </div>
+
+                    <div class="form-group-2">
+                        <label for="bicycle4">Bicycle 4:</label>
+                        <input type="text" id="bicycle4" name="bicycle4" autocomplete="off"
+                            placeholder="4">
                     </div>
                     <input type="submit" value="Create booking">
                 </form>
@@ -152,12 +171,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             $selectedAvailable = isset($_POST['available']) ? $_POST['available'] : "";
                                             echo "<option value='' selected>Select available</option>";
                                             echo "<option value='1' " . ($selectedAvailable == '1' ? 'selected' : '') . ">Available</option>";
-                                            echo "<option value='0' " . ($selectedAvailable == '0' ? 'selected' : '') . ">Not available</option>";
+                                            echo "<option value='2' " . ($selectedAvailable == '2' ? 'selected' : '') . ">Not available</option>";
                                             ?>
                                         </select>
-                                    </th>
-                                    <th>
-                                        <label for="brand">Reserve</label>
                                     </th>
                                 </form>
                             </tr>
@@ -175,7 +191,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td>" . $bike['color'] . "</td>
                                         <td>" . $bike['price'] . "</td>
                                         <td>" . $bike['available'] . "</td>
-                                        <td><input type='checkbox' onchange='updateAvailability(this, " . $bike['id'] . " )'></td>
                                     </tr>";
                             }
 

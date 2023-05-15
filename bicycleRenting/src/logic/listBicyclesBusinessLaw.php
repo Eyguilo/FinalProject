@@ -17,7 +17,7 @@ class ListBicyclesBusinessLaw
         FROM T_Bicycles b
         INNER JOIN T_Brands br ON b.id_brand = br.id_brand
         INNER JOIN T_Size s ON b.id_size = s.id_size
-        INNER JOIN T_Models m ON b.id_model = m.id_model WHERE 1=1";
+        INNER JOIN T_Models m ON b.id_model = m.id_model WHERE 1 = 1";
 
         if (!empty($filter[0])) {
             $query .= " AND br.id_brand = " . $filter[0];
@@ -30,9 +30,12 @@ class ListBicyclesBusinessLaw
         if (!empty($filter[2])) {
             $query .= " AND s.id_size = " . $filter[2];
         }
-
-        if (!empty($filter[3]) || $filter[3] == 1 || $filter[3] == 0) {
-            $query .= " AND b.available = " . $filter[3];
+        if (!empty($filter[3])) {
+            if ($filter[3] == 1) {
+                $query .= " AND b.available = 1";
+            } else {
+                $query .= " AND b.available = 0";
+            }
         }
 
         $listBicyclesDataAccess = new ListBicyclesDataAccess();
