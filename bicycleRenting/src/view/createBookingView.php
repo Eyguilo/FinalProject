@@ -6,6 +6,7 @@ if (!isset($userId)) {
 }
 
 require_once("../logic/listBicyclesBusinessLaw.php");
+
 $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,13 +15,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
     $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($filterData);
 
+    if(!empty($_POST['clientList']) || !empty($_POST['startDate']) || !empty($_POST['endDate']) || !empty($_POST['bicycle1'])){
+
+        require_once("../logic/createBookingBusinessLaw.php");
+
+        $createBookingBusinessLaw = new CreateBookingBusinessLaw();
+        $bookingData = array($_POST['clientList'], $userId, $_POST['startDate'], $_POST['endDate'], $_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'] , $_POST['bicycle4']);
+        var_dump($bookingData);
+        $newBooking = $createBookingBusinessLaw->createBooking($bookingData);
+    }
+
+
 } else {
 
     $falseFilter = "";
     $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($falseFilter);
 
 }
-
 
 
 ?>
@@ -31,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List bicycles</title>
+    <title>Create booking</title>
     <link rel="stylesheet" href="../../css/createBooking.css">
 </head>
 
@@ -53,44 +64,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="clientName">Client:</label>
                         <input type="text" id="clientName" name="clientName" autocomplete="off"
                             placeholder="ex. Jaume Aguiló"><br><br>
-                        <select id="clientList" name="clientList">
+                        <select id="clientList" name="clientList" required>
                             <option value="" selected>Select a client</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="startDate">Start date:</label>
-                        <input type="date" id="startDate" name="startDate">
+                        <label for="startDate">Give bicycles date:</label>
+                        <input type="date" id="startDate" name="startDate" required>
                     </div>
                     <div class="form-group">
-                        <label for="endDate">End date:</label>
-                        <input type="date" id="endDate" name="endDate">
-                    </div>
-                    <div class="form-group">
-                        <label for="startTime">Start time:</label>
-                        <input type="time" id="startTime" name="startTime">
-                    </div>
-                    <div class="form-group">
-                        <label for="endTime">End time:</label>
-                        <input type="time" id="endTime" name="endTime">
+                        <label for="endDate">Return bicycles date:</label>
+                        <input type="date" id="endDate" name="endDate" required>
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle1">Bicycle 1:</label>
                         <input type="text" id="bicycle1" name="bicycle1" autocomplete="off"
-                            placeholder="1">
+                            placeholder="1" required>
                     </div>
-
                     <div class="form-group-2">
                         <label for="bicycle2">Bicycle 2:</label>
                         <input type="text" id="bicycle2" name="bicycle2" autocomplete="off"
                             placeholder="2">
                     </div>
-
                     <div class="form-group-2">
                         <label for="bicycle3">Bicycle 3:</label>
                         <input type="text" id="bicycle3" name="bicycle3" autocomplete="off"
                             placeholder="3">
                     </div>
-
                     <div class="form-group-2">
                         <label for="bicycle4">Bicycle 4:</label>
                         <input type="text" id="bicycle4" name="bicycle4" autocomplete="off"

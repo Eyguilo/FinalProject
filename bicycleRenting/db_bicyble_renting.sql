@@ -62,29 +62,22 @@ CREATE TABLE T_Reservations (
     id_user VARCHAR(7) NOT NULL,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
-    total_price DECIMAL(6 , 2 ) NOT NULL,
-    FOREIGN KEY (id_client)
-        REFERENCES T_Clients (id_client),
-    FOREIGN KEY (id_user)
-        REFERENCES T_Users (id_user)
-);
-
-CREATE TABLE T_Bicycles_by_reservation (
-    id_bicycle_by_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
-    id_reservation INT(5) NOT NULL,
     id_bicycle_1 INT(5) NOT NULL,
     id_bicycle_2 INT(5) NOT NULL,
     id_bicycle_3 INT(5) NOT NULL,
     id_bicycle_4 INT(5) NOT NULL,
-    FOREIGN KEY (id_reservation)
-        REFERENCES T_Reservations (id_reservation),
+    cancelled TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (id_client)
+        REFERENCES T_Clients (id_client),
+    FOREIGN KEY (id_user)
+        REFERENCES T_Users (id_user),
     FOREIGN KEY (id_bicycle_1)
         REFERENCES T_Bicycles (id_bicycle),
     FOREIGN KEY (id_bicycle_2)
         REFERENCES T_Bicycles (id_bicycle),
     FOREIGN KEY (id_bicycle_3)
         REFERENCES T_Bicycles (id_bicycle),
-    FOREIGN KEY (id_bicycle_4t_reservations)
+    FOREIGN KEY (id_bicycle_4)
         REFERENCES T_Bicycles (id_bicycle)
 );
 

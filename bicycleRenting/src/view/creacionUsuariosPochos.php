@@ -3,13 +3,13 @@
 
     function test_alta_usuario() {
         $u = new LogInDataAccess();
-        return $u->addUser('JMGL000', 'Jaume', 'Pizà', '1234', 'Worker');        
+        return $u->addUser('JMG001', 'Jame', 'Piz', '1234', 'Administrator');        
     }
 
     function test_verificar_usuario_encontrado() {
-        $perfil_esperado = 'Worker';
+        $perfil_esperado = 'Administrator';
         $u = new LogInDataAccess();
-        $perfil = $u->verifyUser('JMGL000','1234');
+        $perfil = $u->verifyUser('JMG001','1234');
         return $perfil === $perfil_esperado;
     }
     var_dump(test_alta_usuario());

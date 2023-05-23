@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_POST['postalCode']
     );
 
-    header("Location: menuStartAdminView.php");
+    header("Location: menuStartView.php");
 }
 ?>
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create client</title>
-    <link rel="stylesheet" href="../../css/createBooking.css">
+    <link rel="stylesheet" href="../../css/createClient.css">
 </head>
 
 <body>
@@ -56,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" name="phone" pattern="(\+[0-9]{2,3} )?[0-9]{3}-[0-9]{3}-[0-9]{3}"
-                            placeholder="(+34) 695-652-874" required autocomplete="off">
+                        <input type="tel" id="phone" name="phone" pattern="(\+[0-9]{2,3} )?[0-9]{9-12}"
+                            placeholder="(+34) 695652874" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="address">Address:</label>
