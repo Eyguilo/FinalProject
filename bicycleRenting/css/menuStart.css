@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #F1E7D6;
+    background-color: #f2f2f2;
 }
 
 #container {
@@ -15,14 +15,20 @@ body {
 }
 
 #central {
+    max-width: 500px;
     width: 100%;
-    max-width: 400px;
-    text-align: center;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
 
 .title {
-    font-size: 2em;
-    margin-bottom: 1em;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .links {
@@ -35,16 +41,16 @@ body {
     display: block;
     padding: 0.5em;
     margin-bottom: 0.5em;
-    background-color: #ffd09a;
-    color: #4E4E4E;
+    background-color: #007bff;
+    color: white;
     text-decoration: none;
     border-radius: 5px;
     transition: all 0.2s ease-in-out;
 }
 
 .links a:hover {
-    background-color: #ffbcdc;
-    color: #FFFFFF;
+    background-color: #0069d9;
+    color: #fff;
 }
 
 .logAs {
@@ -52,9 +58,9 @@ body {
     top: 1%;
     left: 1%;
     padding: 0.5em;
-    font-size: 1em;
-    background-color: #ffd09a;
-    color: #4E4E4E;
+    font-size: 1.1em;
+    background-color: #007bff;
+    color: white;
     border-radius: 5px;
 }
 
@@ -64,14 +70,16 @@ body {
     top: 1%;
     right: 1%;
     padding: 0.5em;
-    background-color: #ffd09a;
-    color: #4E4E4E;
+    background-color: #007bff;
+    color: white;
     text-decoration: none;
     border-radius: 5px;
     transition: all 0.2s ease-in-out;
+    font-size: 1.1em;
 }
 
-#logOut:hover, #logOut:hover div {
-    background-color: #ffbcdc;
-    color: #FFFFFF;
+#logOut:hover,
+#logOut:hover div {
+    background-color: #0069d9;
+    color: #fff;
 }

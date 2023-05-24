@@ -9,28 +9,30 @@ require_once("../logic/listBicyclesBusinessLaw.php");
 
 $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
 
+$listBicyclesPostValues = array(
+    'brand' => isset($_POST['brand']) ? $_POST['brand'] : '',
+    'model' => isset($_POST['model']) ? $_POST['model'] : '',
+    'size' => isset($_POST['size']) ? $_POST['size'] : '',
+    'available' => isset($_POST['available']) ? $_POST['available'] : ''
+);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
-    $filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
+    $filterData = array($listBicyclesPostValues['brand'], $listBicyclesPostValues['model'], $listBicyclesPostValues['size'], $listBicyclesPostValues['available']);
     $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($filterData);
 
-    if(!empty($_POST['clientList']) || !empty($_POST['startDate']) || !empty($_POST['endDate']) || !empty($_POST['bicycle1'])){
+    if (!empty($_POST['clientList'])) {
 
         require_once("../logic/createBookingBusinessLaw.php");
 
         $createBookingBusinessLaw = new CreateBookingBusinessLaw();
-        $bookingData = array($_POST['clientList'], $userId, $_POST['startDate'], $_POST['endDate'], $_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'] , $_POST['bicycle4']);
-        var_dump($bookingData);
+        $bookingData = array($_POST['clientList'], $userId, $_POST['startDate'], $_POST['endDate'], $_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
         $newBooking = $createBookingBusinessLaw->createBooking($bookingData);
     }
-
-
 } else {
-
     $falseFilter = "";
     $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($falseFilter);
-
 }
 
 
@@ -54,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div id="centralBooking">
             <div id="create">
                 <div class="title">Create Booking</div>
-                <form method="POST" action="createBookingView.php">
+                <form id="createBookingForm" method="POST" action="createBookingView.php">
                     <div class="form-group">
                         <label>Worker:
                             <?php echo $userId; ?>
@@ -70,32 +72,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="form-group">
                         <label for="startDate">Give bicycles date:</label>
-                        <input type="date" id="startDate" name="startDate" required>
+                        <input type="datetime-local" id="startDate" name="startDate" required>
                     </div>
                     <div class="form-group">
                         <label for="endDate">Return bicycles date:</label>
-                        <input type="date" id="endDate" name="endDate" required>
+                        <input type="datetime-local" id="endDate" name="endDate" required>
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle1">Bicycle 1:</label>
-                        <input type="text" id="bicycle1" name="bicycle1" autocomplete="off"
-                            placeholder="1" required>
+                        <input type="text" id="bicycle1" name="bicycle1" autocomplete="off" placeholder="1"
+                            pattern="[0-9]{1,3}" required>
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle2">Bicycle 2:</label>
-                        <input type="text" id="bicycle2" name="bicycle2" autocomplete="off"
-                            placeholder="2">
+                        <input type="text" id="bicycle2" name="bicycle2" autocomplete="off" placeholder="2"
+                            pattern="[0-9]{1,3}">
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle3">Bicycle 3:</label>
-                        <input type="text" id="bicycle3" name="bicycle3" autocomplete="off"
-                            placeholder="3">
+                        <input type="text" id="bicycle3" name="bicycle3" autocomplete="off" placeholder="3"
+                            pattern="[0-9]{1,3}">
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle4">Bicycle 4:</label>
-                        <input type="text" id="bicycle4" name="bicycle4" autocomplete="off"
-                            placeholder="4">
+                        <input type="text" id="bicycle4" name="bicycle4" autocomplete="off" placeholder="4"
+                            pattern="[0-9]{1,3}">
                     </div>
+
                     <input type="submit" value="Create booking">
                 </form>
             </div>
@@ -109,7 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <form id="listBicyclesForm" method="POST"
+                                    action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                     <th>
                                         <label for="brand">Brand:</label>
                                         <select id="brand" name="brand" onchange="this.form.submit()">
