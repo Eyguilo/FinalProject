@@ -157,3 +157,12 @@ input[type="submit"]:hover {
 #back-button a:hover {
     background-color: #0069d9;
 }
+
+.unavailable,
+.unavailable:nth-child(even) {
+    background-color: #ffbaba;
+}
+
+.unavailable:hover{
+    background-color: #a07575;
+}

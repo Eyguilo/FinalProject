@@ -28,7 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $createBookingBusinessLaw = new CreateBookingBusinessLaw();
         $bookingData = array($_POST['clientList'], $userId, $_POST['startDate'], $_POST['endDate'], $_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
-        $newBooking = $createBookingBusinessLaw->createBooking($bookingData);
+        $dateData = array($_POST['startDate'], $_POST['endDate']);
+        $bicyclesId = array($_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
+        $createBookingBusinessLaw->createBookingInvoice($bookingData, $dateData, $bicyclesId);
     }
 } else {
     $falseFilter = "";
@@ -185,9 +187,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <tbody>
                             <?php
                             foreach ($filteredBicycles as $bike) {
-
+                                $availabilityClass = ($bike['available'] == 0) ? 'unavailable' : '';
                                 echo "
-                                    <tr>
+                                    <tr class='" . $availabilityClass . "'>
                                         <td>" . $bike['id'] . "</td>
                                         <td>" . $bike['brand'] . "</td>
                                         <td>" . $bike['model'] . "</td>
@@ -197,7 +199,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td>" . $bike['available'] . "</td>
                                     </tr>";
                             }
-
                             ?>
                         </tbody>
                     </table>

@@ -10,8 +10,10 @@ class CreateBookingBusinessLaw
     {
     }
 
-    function createBooking($bookingData)
+    function createBookingInvoice($bookingData, $dateData, $bicyclesId)
     {
+        $createBookingDataAccess = new CreateBookingDataAccess();
+
         if ($bookingData[5] == "") {
             $bookingData[5] = null;
         }
@@ -22,8 +24,24 @@ class CreateBookingBusinessLaw
             $bookingData[7] = null;
         }
 
-        $createBookingDataAccess = new CreateBookingDataAccess();
-        $result = $createBookingDataAccess->createBooking($bookingData);
-        return $result;
+        $totalPrice = 0;
+        foreach ($bicyclesId as $bike) {
+            $price = $createBookingDataAccess->priceBicycles($bike);
+            $totalPrice += $price;
+        }
+
+        $startDate = new DateTime($dateData[0]);
+        $endDate = new DateTime($dateData[1]);
+        $diff = $startDate->diff($endDate);
+        $numDays = $diff->days;
+
+        if ($numDays >= 3) {
+            $increment = $totalPrice * 0.02 * ($numDays - 2);
+            $totalPrice += $increment;
+        }
+        
+        $createBookingDataAccess->createBooking($bookingData, $totalPrice);
+
+        return true;
     }
 }
