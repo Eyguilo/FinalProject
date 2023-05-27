@@ -42,6 +42,6 @@ class CreateBookingBusinessLaw
         
         $createBookingDataAccess->createBooking($bookingData, $totalPrice);
 
-        return true;
+        return $totalPrice;
     }
 }

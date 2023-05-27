@@ -9,7 +9,7 @@ CREATE TABLE T_Clients (
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    postal_code INT(5) NOT NULL
+    postal_code INT(5)
 );
 
 CREATE TABLE T_Users (
@@ -103,7 +103,27 @@ INSERT INTO T_Clients (name, last_name, email, phone, address, postal_code) VALU
 ('David', 'Lee', 'davidlee@example.com', '444-444-444', '1234 Oakwood Ave.', 56743),
 ('Sarah', 'Kim', 'sarahkim@example.com', '777-777-777', '5678 Maplewood Blvd.', 56743),
 ('Michael', 'Brown', 'michaelbrown@example.com', '888-888-888', '9101 Elmwood Ln.', 56743),
-('Jennifer', 'Smith', 'jennifersmith@example.com', '999-999-999', '2345 Pinewood Dr.', 56743);
+('Jennifer', 'Smith', 'jennifersmith@example.com', '999-999-999', '2345 Pinewood Dr.', 56743),
+('Alex', 'Johnson', 'alexjohnson@example.com', '111-222-333', '123 Elm St.', 56743),
+('Jessica', 'Davis', 'jessicadavis@example.com', '444-555-666', '456 Oak St.', 56743),
+('Ryan', 'Wilson', 'ryanwilson@example.com', '777-888-999', '789 Maple St.', 56743),
+('Laura', 'Thomas', 'laurathomas@example.com', '111-222-333', '234 Pine St.', 56743),
+('Steven', 'Anderson', 'stevenanderson@example.com', '444-555-666', '567 Cedar St.', 56743),
+('Rebecca', 'Clark', 'rebeccaclark@example.com', '777-888-999', '890 Oakwood Ave.', 56743),
+('Daniel', 'Taylor', 'danieltaylor@example.com', '111-222-333', '1234 Maplewood Blvd.', 56743),
+('Samantha', 'Harris', 'samanthaharris@example.com', '444-555-666', '5678 Elmwood Ln.', 56743),
+('Matthew', 'Walker', 'matthewwalker@example.com', '777-888-999', '9101 Pinewood Dr.', 56743),
+('Stephanie', 'Turner', 'stephanieturner@example.com', '111-222-333', '2345 Oak St.', 56743),
+('Andrew', 'Parker', 'andrewparker@example.com', '444-555-666', '123 Main St.', 56743),
+('Michelle', 'White', 'michellewhite@example.com', '777-888-999', '456 Oak St.', 56743),
+('Jonathan', 'Carter', 'jonathancarter@example.com', '111-222-333', '789 Maple St.', 56743),
+('Lauren', 'Baker', 'laurenbaker@example.com', '444-555-666', '234 Pine St.', 56743),
+('Kevin', 'Cook', 'kevincook@example.com', '777-888-999', '567 Cedar St.', 56743),
+('Ashley', 'Green', 'ashleygreen@example.com', '111-222-333', '890 Oakwood Ave.', 56743),
+('Christopher', 'Ross', 'christopherross@example.com', '444-555-666', '1234 Maplewood Blvd.', 56743),
+('Amanda', 'Morgan', 'amandamorgan@example.com', '777-888-999', '5678 Elmwood Ln.', 56743),
+('Nicholas', 'Howard', 'nicholashoward@example.com', '111-222-333', '9101 Pinewood Dr.', 56743),
+('Heather', 'Phillips', 'heatherphillips@example.com', '444-555-666', '2345 Oak St.', 56743);
 
 INSERT INTO T_Brands (name, description)
 VALUES ('Trek' ,'Marca estadounidense de bicicletas conocida por su tecnología innovadora y diseños de alta calidad'), 

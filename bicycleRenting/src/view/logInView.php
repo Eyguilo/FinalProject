@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div id="start">
                 <div class="title">Welcome</div>
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input id="userId" name="userId" type="text" placeholder="Username">
+                    <input id="userId" name="userId" type="text" placeholder="Username" autocomplete="off">
                     <input id="keyUser" name="keyUser" type="password" placeholder="Password">
                     <input id="button" type="submit" value="Submit">
                 </form>
