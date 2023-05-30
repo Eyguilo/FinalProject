@@ -20,6 +20,9 @@ class ListBicyclesDataAccess
         mysqli_select_db($connection, 'db_bicycle_renting');
         $query = mysqli_prepare($connection, $sentence);
         $query->execute();
+
+        $this->queryError($query, $connection);
+
         $result = $query->get_result();
 
         return $result;
@@ -35,6 +38,9 @@ class ListBicyclesDataAccess
         mysqli_select_db($connection, 'db_bicycle_renting');
         $query = mysqli_prepare($connection, "SELECT b.name FROM T_Brands b;");
         $query->execute();
+
+        $this->queryError($query, $connection);
+
         $result = $query->get_result();
 
         return $result;
@@ -50,6 +56,9 @@ class ListBicyclesDataAccess
         mysqli_select_db($connection, 'db_bicycle_renting');
         $query = mysqli_prepare($connection, "SELECT m.name FROM T_Models m;");
         $query->execute();
+
+        $this->queryError($query, $connection);
+
         $result = $query->get_result();
 
         return $result;
@@ -65,8 +74,20 @@ class ListBicyclesDataAccess
         mysqli_select_db($connection, 'db_bicycle_renting');
         $query = mysqli_prepare($connection, "SELECT s.size_cm FROM T_Size s;");
         $query->execute();
+
+        $this->queryError($query, $connection);
+
         $result = $query->get_result();
 
         return $result;
+    }
+
+    private function queryError($query, $connection)
+    {
+
+        if ($query === false) {
+            echo "Error executing query: " . mysqli_error($connection);
+            return false;
+        }
     }
 }

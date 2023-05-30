@@ -39,9 +39,37 @@ class CreateBookingBusinessLaw
             $increment = $totalPrice * 0.02 * ($numDays - 2);
             $totalPrice += $increment;
         }
-        
-        $createBookingDataAccess->createBooking($bookingData, $totalPrice);
+
+        $createBookingDataAccess->createBooking($bookingData, $this->generateFlightLocator(), $totalPrice);
 
         return $totalPrice;
+    }
+
+    public function findReservations($filter)
+    {
+        $query = "SELECT r.id_reservation, c.name, c.last_name, r.id_user, r.code_locator, r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, r.reservation_date, r.state_reservation, r.last_modification_date 
+        FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client WHERE 1 = 1";
+
+        if (!empty($filter[0])) {
+            $query .= " AND r.state_reservation LIKE '" . $filter[0] ."'";
+        }
+
+        $createBookingDataAccess = new CreateBookingDataAccess();
+        $result = $createBookingDataAccess->listReservations($query);
+
+        return $result;
+    }
+
+    private function generateFlightLocator()
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $locator = '';
+
+        for ($i = 0; $i < 6; $i++) {
+            $randomIndex = rand(0, strlen($characters) - 1);
+            $locator .= $characters[$randomIndex];
+        }
+
+        return $locator;
     }
 }

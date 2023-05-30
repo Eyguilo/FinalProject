@@ -3,7 +3,7 @@
 
     function test_alta_usuario() {
         $u = new LogInDataAccess();
-        return $u->addUser('JMGL000', 'Jame', 'Piz', '1234', 'Administrator');        
+        return $u->addUser('JMGL000', 'Jaume', 'Piza', '1234', 'Administrator');        
     }
 
     function test_verificar_usuario_encontrado() {

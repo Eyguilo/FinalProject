@@ -60,6 +60,7 @@ CREATE TABLE T_Reservations (
     id_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
     id_client INT(5) NOT NULL,
     id_user VARCHAR(7) NOT NULL,
+    code_locator VARCHAR(6) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     id_bicycle_1 INT(5) NOT NULL,
@@ -67,8 +68,8 @@ CREATE TABLE T_Reservations (
     id_bicycle_3 INT(5),
     id_bicycle_4 INT(5),
     reservation_date DATETIME NOT NULL DEFAULT NOW(),
-	cancelled TINYINT(1) NOT NULL DEFAULT 0,
-    reservation_cancelled_date DATETIME,
+    state_reservation VARCHAR(25) NOT NULL DEFAULT 'PENDING',
+    last_modification_date DATE,
     FOREIGN KEY (id_client)
         REFERENCES T_Clients (id_client),
     FOREIGN KEY (id_user)
@@ -86,6 +87,7 @@ CREATE TABLE T_Reservations (
 CREATE TABLE T_Invoices (
     id_invoice INT PRIMARY KEY AUTO_INCREMENT,
     id_reservation INT NOT NULL,
+    code_locator VARCHAR(6) NOT NULL,
     total_price DECIMAL(6 , 2 ) NOT NULL,
     issue_date DATETIME NOT NULL DEFAULT NOW(),
     paid TINYINT(1) NOT NULL DEFAULT 0,

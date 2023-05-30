@@ -84,11 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="form-group">
                         <label for="startDate">Give bicycles date:</label>
-                        <input type="datetime-local" id="startDate" name="startDate" required>
+                        <input type="date" id="startDate" name="startDate" required>
                     </div>
                     <div class="form-group">
                         <label for="endDate">Return bicycles date:</label>
-                        <input type="datetime-local" id="endDate" name="endDate" required>
+                        <input type="date" id="endDate" name="endDate" required>
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle1">Bicycle 1:</label>
