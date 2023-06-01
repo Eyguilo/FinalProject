@@ -57,10 +57,9 @@ CREATE TABLE T_Bicycles (
 );
 
 CREATE TABLE T_Reservations (
-    id_reservation INT(5) PRIMARY KEY AUTO_INCREMENT,
+    code_locator VARCHAR(6) PRIMARY KEY,
     id_client INT(5) NOT NULL,
     id_user VARCHAR(7) NOT NULL,
-    code_locator VARCHAR(6) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     id_bicycle_1 INT(5) NOT NULL,
@@ -85,14 +84,11 @@ CREATE TABLE T_Reservations (
 );
 
 CREATE TABLE T_Invoices (
-    id_invoice INT PRIMARY KEY AUTO_INCREMENT,
-    id_reservation INT NOT NULL,
-    code_locator VARCHAR(6) NOT NULL,
-    total_price DECIMAL(6 , 2 ) NOT NULL,
+    code_locator VARCHAR(6) PRIMARY KEY,
+    total_price DECIMAL(6, 2) NOT NULL,
     issue_date DATETIME NOT NULL DEFAULT NOW(),
     paid TINYINT(1) NOT NULL DEFAULT 0,
-    FOREIGN KEY (id_reservation)
-        REFERENCES T_Reservations (id_reservation)
+    paid_date DATETIME
 );
 
 INSERT INTO T_Clients (name, last_name, email, phone, address, postal_code) VALUES
@@ -176,3 +172,13 @@ FROM T_Brands b, T_Models m, T_Size s,
       UNION ALL SELECT 'Green' UNION ALL SELECT 'Grey') c
 ORDER BY RAND()
 LIMIT 200;
+
+INSERT INTO T_Reservations (code_locator, id_client, id_user,  start_date, end_date, id_bicycle_1, state_reservation)
+VALUES ('ABC123', 1, 'JMGL000', '2023-05-20', '2023-05-25', 1, 'CANCELLED');
+INSERT INTO T_Reservations (code_locator, id_client, id_user, start_date, end_date, id_bicycle_1, state_reservation)
+VALUES ('DEF456',2, 'JMGL000', '2023-06-01', '2023-06-05', 2, 'PENDING');
+INSERT INTO T_Reservations (code_locator, id_client, id_user, start_date, end_date, id_bicycle_1, state_reservation)
+VALUES ('GHI789', 3, 'JMGL000', '2023-07-10', '2023-07-15', 3, 'PAID');
+
+INSERT INTO T_Bicycles (id_brand, id_model, id_size, color, rental_price_hour, available) VALUES (1,1,1, 'Grey', 777, 0);
+INSERT INTO T_Bicycles (id_brand, id_model, id_size, color, rental_price_hour, available) VALUES (1,2,1, 'Grey', 200, 0);

@@ -40,7 +40,7 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                 </div>
                 <div class="links">
                     <a href="createBookingView.php">Create booking</a>
-                    <a href="listReservationsView.php">Reservations list</a>
+                    <a href="listBookingsView.php">Booking list</a>
                     <a href="createClientView.php">Create client</a>                   
                     <a href="listBicyclesView.php">Bicycles list</a>
                     <a href="">Bicycles routes</a>
