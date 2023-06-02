@@ -6,7 +6,7 @@ require_once("../infraestructure/createBookingDataAccess.php");
 
 class CreateBookingBusinessLaw
 {
-    public function __construct()
+    function __construct()
     {
     }
 
@@ -45,7 +45,7 @@ class CreateBookingBusinessLaw
         return $totalPrice;
     }
 
-    public function findReservations($filter)
+    function findBooking($filter)
     {
         $query = "SELECT r.code_locator, c.name, c.last_name, r.id_user,  r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, r.reservation_date, r.state_reservation, r.last_modification_date 
         FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client WHERE 1 = 1";
@@ -55,7 +55,15 @@ class CreateBookingBusinessLaw
         }
 
         $createBookingDataAccess = new CreateBookingDataAccess();
-        $result = $createBookingDataAccess->listReservations($query);
+        $result = $createBookingDataAccess->listBookings($query);
+
+        return $result;
+    }
+
+    function findInvoiceBookingByLocator($locator)
+    {
+        $createBookingDataAccess = new CreateBookingDataAccess();
+        $result = $createBookingDataAccess->findInvoiceBookingDataByLocator($locator);
 
         return $result;
     }

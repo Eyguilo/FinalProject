@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $createBookingBusinessLaw = new CreateBookingBusinessLaw();
     $filterData = array($_POST['state']);
-    $reservations = $createBookingBusinessLaw->findReservations($filterData);
+    $reservations = $createBookingBusinessLaw->findBooking($filterData);
 
 } else {
     $falseFilter = "";
-    $reservations = $createBookingBusinessLaw->findReservations($falseFilter);
+    $reservations = $createBookingBusinessLaw->findBooking($falseFilter);
 }
 
 ?>

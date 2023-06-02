@@ -25,8 +25,8 @@ class CreateBookingDataAccess
 
         $this->queryError($query, $connection);
 
-        $query = mysqli_prepare($connection, "INSERT INTO T_Invoices (code_locator, total_price) VALUES (?, ?);");
-        $query->bind_param("sd", $locator, $totalPrice);
+        $query = mysqli_prepare($connection, "INSERT INTO T_Invoices (code_locator, total_price, id_client, id_user) VALUES (?, ?, ?, ?);");
+        $query->bind_param("sdis", $locator, $totalPrice, $bookingData[0], $bookingData[1]);
         $query->execute();
 
         $this->queryError($query, $connection);
@@ -58,7 +58,7 @@ class CreateBookingDataAccess
         return $price;
     }
 
-    function listReservations($sentence)
+    function listBookings($sentence)
     {
         $connection = mysqli_connect('localhost', 'root', '1234');
         if (mysqli_connect_errno()) {
@@ -77,6 +77,33 @@ class CreateBookingDataAccess
         return $result;
     }
 
+    function findInvoiceBookingDataByLocator($locator)
+    {
+        $connection = mysqli_connect('localhost', 'root', '1234');
+        if (mysqli_connect_errno()) {
+            echo "Error connecting to MySQL: " . mysqli_connect_error();
+        }
+
+        mysqli_select_db($connection, 'db_bicycle_renting');
+
+        $query = mysqli_prepare($connection, "SELECT r.code_locator locator, c.name, c.last_name, r.id_user,  r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, r.reservation_date, r.state_reservation, r.last_modification_date, i.total_price
+        FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client INNER JOIN T_Invoices i ON r.code_locator = r.code_locator WHERE r.code_locator = (?);");
+        $locatorSanitized = mysqli_real_escape_string($connection, $locator);
+        $query->bind_param("s", $locatorSanitized);
+        $query->execute();
+
+        $this->queryError($query, $connection);
+
+        $result = $query->get_result();
+
+        $booking =  array();
+        while ($myrow = $result->fetch_assoc()) {
+            array_push($booking, $myrow);
+        }
+
+        return $booking;
+    }
+
     private function queryError($query, $connection)
     {
 
@@ -85,5 +112,4 @@ class CreateBookingDataAccess
             return false;
         }
     }
-
 }

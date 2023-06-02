@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 100px;
-    height: 80vh;
+    height: 93vh;
 }
 
 #central {
@@ -33,15 +33,21 @@ body {
     margin-bottom: 20px;
 }
 
-.form-group,
-.form-group-2 {
-    margin-bottom: 20px;
+.group{
+    float: left;
+    margin-left: 45px;
 }
 
-.form-group-2 {
-    width: 70px;
-    float: left;
-    margin-right: 40px;
+.form-group {
+    margin-bottom: 20px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f2f2f2;
+    font-size: px;
+    color: #333;
+    height: 40px;
 }
 
 label {
@@ -51,17 +57,50 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-textarea {
+#homeButton {
+    position: absolute;
+    top: 30px;
+    left: 30px;
     width: 100%;
-    padding: 10px;
+}
+
+#homeButton a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
     border-radius: 5px;
-    border: none;
-    background-color: #f2f2f2;
-    font-size: 16px;
-    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#homeButton a:hover {
+    background-color: #0069d9;
+}
+
+#backButton {
+    position: absolute;
+    top: 30px;
+    left: 100px;
+    width: 100%;
+}
+
+#backButton a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#backButton a:hover {
+    background-color: #0069d9;
 }
 
 input[type="submit"] {
@@ -76,28 +115,5 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #0069d9;
-}
-
-#back-button {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    width: 100px;
-}
-
-#back-button a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.2s ease-in-out;
-}
-
-#back-button a:hover {
     background-color: #0069d9;
 }

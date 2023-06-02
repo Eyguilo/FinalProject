@@ -85,11 +85,19 @@ CREATE TABLE T_Reservations (
 
 CREATE TABLE T_Invoices (
     code_locator VARCHAR(6) PRIMARY KEY,
-    total_price DECIMAL(6, 2) NOT NULL,
-    issue_date DATETIME NOT NULL DEFAULT NOW(),
-    paid TINYINT(1) NOT NULL DEFAULT 0,
-    paid_date DATETIME
+    total_price DECIMAL(6 , 2 ) NOT NULL,
+    id_client INT(5) NOT NULL,
+    id_user VARCHAR(7) NOT NULL,
+    FOREIGN KEY (code_locator)
+        REFERENCES T_Reservations (code_locator),
+    FOREIGN KEY (id_client)
+        REFERENCES T_Clients (id_client),
+    FOREIGN KEY (id_user)
+        REFERENCES T_Users (id_user)
 );
+
+INSERT INTO T_Users (id_user, name, last_name, key_user, profile_user) 
+VALUES ('JMGL000', 'Jaume', 'Piza', '$2y$10$abegd4mj6sXOrOpSZ7ZAyeMqq8paah87qSWebgpnPhHDaCx2MZ7f6', 'Administrator');
 
 INSERT INTO T_Clients (name, last_name, email, phone, address, postal_code) VALUES
 ('John', 'Doe', 'johndoe@example.com', '123-456-789', '123 Main St.', 56743),

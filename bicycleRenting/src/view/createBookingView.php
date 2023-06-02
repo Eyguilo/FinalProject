@@ -95,22 +95,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group-2">
                         <label for="bicycle1">Bicycle 1:</label>
                         <input type="text" id="bicycle1" name="bicycle1" autocomplete="off" placeholder="1"
-                            pattern="[0-9]{1,3}" required>
+                            pattern="[1-9]|[1-9][0-9]{1,5}|1000000)" required>
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle2">Bicycle 2:</label>
                         <input type="text" id="bicycle2" name="bicycle2" autocomplete="off" placeholder="2"
-                            pattern="[0-9]{1,3}">
+                            pattern="[1-9]|[1-9][0-9]{1,5}|1000000)">
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle3">Bicycle 3:</label>
                         <input type="text" id="bicycle3" name="bicycle3" autocomplete="off" placeholder="3"
-                            pattern="[0-9]{1,3}">
+                            pattern="[1-9]|[1-9][0-9]{1,5}|1000000)">
                     </div>
                     <div class="form-group-2">
                         <label for="bicycle4">Bicycle 4:</label>
                         <input type="text" id="bicycle4" name="bicycle4" autocomplete="off" placeholder="4"
-                            pattern="[0-9]{1,3}">
+                            pattern="[1-9]|[1-9][0-9]{1,5}|1000000)">
                     </div>
 
                     <input type="submit" value="Create booking">
