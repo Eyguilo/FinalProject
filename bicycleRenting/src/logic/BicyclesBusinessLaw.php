@@ -2,9 +2,9 @@
 ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
-require_once("../infraestructure/listBicyclesDataAccess.php");
+require_once("../infraestructure/BicyclesDataAccess.php");
 
-class ListBicyclesBusinessLaw
+class BicyclesBusinessLaw
 {
     public function __construct()
     {
@@ -38,16 +38,16 @@ class ListBicyclesBusinessLaw
             }
         }
 
-        $listBicyclesDataAccess = new ListBicyclesDataAccess();
-        $result = $listBicyclesDataAccess->findBicycles($query);
+        $bicyclesDataAccess = new BicyclesDataAccess();
+        $result = $bicyclesDataAccess->findBicycles($query);
 
         return $result;
     }
 
     public function findBrands()
     {
-        $listBicyclesDataAccess = new ListBicyclesDataAccess();
-        $result = $listBicyclesDataAccess->findBrands();
+        $bicyclesDataAccess = new BicyclesDataAccess();
+        $result = $bicyclesDataAccess->findBrands();
 
         $brands = array();
         while ($myrow = $result->fetch_row()) {
@@ -58,8 +58,8 @@ class ListBicyclesBusinessLaw
 
     public function findModels()
     {
-        $listBicyclesDataAccess = new ListBicyclesDataAccess();
-        $result = $listBicyclesDataAccess->findModels();
+        $bicyclesDataAccess = new BicyclesDataAccess();
+        $result = $bicyclesDataAccess->findModels();
 
         $models = array();
         while ($myrow = $result->fetch_row()) {
@@ -70,8 +70,8 @@ class ListBicyclesBusinessLaw
 
     public function findSizes()
     {
-        $listBicyclesDataAccess = new ListBicyclesDataAccess();
-        $result = $listBicyclesDataAccess->findSizes();
+        $bicyclesDataAccess = new BicyclesDataAccess();
+        $result = $bicyclesDataAccess->findSizes();
 
         $sizes = array();
         while ($myrow = $result->fetch_row()) {

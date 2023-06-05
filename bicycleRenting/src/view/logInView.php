@@ -1,5 +1,5 @@
 <?php
-require("../logic/logInBusinessLaw.php");
+require("../logic/LogInBusinessLaw.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $logInBusinessLaw = new LogInBusinessLaw();
@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($profileUser === "Administrator" || $profileUser === "Worker") {
         session_start();
         $_SESSION['userId'] = $_POST['userId'];
-        header("Location: menuStartView.php");
+        header("Location: MenuStartView.php");
     } else {
         $error = true;
     }

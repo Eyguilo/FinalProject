@@ -2,17 +2,17 @@
 ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
-require_once("../infraestructure/createBookingDataAccess.php");
+require_once("../infraestructure/BookingDataAccess.php");
 
-class CreateBookingBusinessLaw
+class BookingBusinessLaw
 {
     function __construct()
     {
     }
 
-    function createBookingInvoice($bookingData, $dateData, $bicyclesId)
+    function createBookingInvoice($bookingData, $datesData, $bicyclesId)
     {
-        $createBookingDataAccess = new CreateBookingDataAccess();
+        $bookingDataAccess = new BookingDataAccess();
 
         if ($bookingData[5] == "") {
             $bookingData[5] = null;
@@ -26,12 +26,12 @@ class CreateBookingBusinessLaw
 
         $totalPrice = 0;
         foreach ($bicyclesId as $bike) {
-            $price = $createBookingDataAccess->priceBicycles($bike);
+            $price = $bookingDataAccess->priceBicycles($bike);
             $totalPrice += $price;
         }
 
-        $startDate = new DateTime($dateData[0]);
-        $endDate = new DateTime($dateData[1]);
+        $startDate = new DateTime($datesData[0]);
+        $endDate = new DateTime($datesData[1]);
         $diff = $startDate->diff($endDate);
         $numDays = $diff->days;
 
@@ -40,9 +40,11 @@ class CreateBookingBusinessLaw
             $totalPrice += $increment;
         }
 
-        $createBookingDataAccess->createBooking($bookingData, $this->generateFlightLocator(), $totalPrice);
+        $locator = $this->generateLocator();
 
-        return $totalPrice;
+        $bookingDataAccess->createBooking($bookingData, $locator, $totalPrice);
+
+        return $locator;
     }
 
     function findBooking($filter)
@@ -54,7 +56,7 @@ class CreateBookingBusinessLaw
             $query .= " AND r.state_reservation LIKE '" . $filter[0] . "'";
         }
 
-        $createBookingDataAccess = new CreateBookingDataAccess();
+        $createBookingDataAccess = new BookingDataAccess();
         $result = $createBookingDataAccess->listBookings($query);
 
         return $result;
@@ -62,13 +64,21 @@ class CreateBookingBusinessLaw
 
     function findInvoiceBookingByLocator($locator)
     {
-        $createBookingDataAccess = new CreateBookingDataAccess();
-        $result = $createBookingDataAccess->findInvoiceBookingDataByLocator($locator);
+        $bookingDataAccess = new BookingDataAccess();
+        $result = $bookingDataAccess->findInvoiceBookingDataByLocator($locator);
 
         return $result;
     }
 
-    private function generateFlightLocator()
+    function updateStateBooking($locator, $state)
+    {
+        
+        $bookingDataAccess = new BookingDataAccess();
+        $bookingDataAccess->updateStateBooking($locator, $state);
+
+    }
+
+    private function generateLocator()
     {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $locator = '';

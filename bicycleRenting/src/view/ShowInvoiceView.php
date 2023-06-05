@@ -2,27 +2,21 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 
 $locator = $_GET['locator'];
 
-require_once("../logic/createBookingBusinessLaw.php");
-$createBookingBusinessLaw = new CreateBookingBusinessLaw();
-$invoiceData = $createBookingBusinessLaw->findInvoiceBookingByLocator($locator);
+require_once("../logic/BookingBusinessLaw.php");
+$bookingBusinessLaw = new BookingBusinessLaw();
+$invoiceData = $bookingBusinessLaw->findInvoiceBookingByLocator($locator);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $createClientBusinessLaw = new CreateClientBusinessLaw();
-    $clientData = $createClientBusinessLaw->createClient(
-        $_POST['clientName'],
-        $_POST['clientLastName'],
-        $_POST['email'],
-        $_POST['phone'],
-        $_POST['address'],
-        $_POST['postalCode']
-    );
 
-    header("Location: menuStartView.php");
+    $bookingBusinessLaw = new BookingBusinessLaw();
+    $bookingBusinessLaw->updateStateBooking($_POST['locator'], $_POST['state']);
+
+    header("Location: ListBookingsView.php");
 }
 ?>
 
@@ -41,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="container">
         <div id="buttons">
             <div id="homeButton">
-                <a href="menuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <a href="MenuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                         <path
                             d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
@@ -50,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </a>
             </div>
             <div id="backButton">
-                <a href="listBookingsView.php"> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                <a href="ListBookingsView.php"> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                         fill='currentColor' class='bi bi-arrow-left' viewBox='0 0 16 16'>
                         <path fill-rule='evenodd'
                             d='M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z' />
@@ -146,13 +140,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="group">
-                    <form method="POST" action="createClientView.php">
-                        <input type="submit" value="Pay">
-                    </form>
+                    <label for="bicycle">State booking</label>
+                    <div class="form-group">
+                        <?php echo $invoiceData[0]['state_reservation'] ?>
+                    </div>
                 </div>
+
+                <?php
+
+                if ($invoiceData[0]['state_reservation'] == "PENDING") {
+                    echo "                
+                    <div class='group'>
+                        <form id='payInvoice' method='POST' action='ShowInvoiceView.php'>
+                            <input type='hidden' name='locator' value='" . $invoiceData[0]['locator'] . "'>
+                            <input type='hidden' name='state' value='PAID'>
+                            <input type='submit' name='action' value='Pay'>
+                        </form>
+                    </div>
+                    <div class='group'>
+                        <form id='cancelInvoice' method='POST' action='ShowInvoiceView.php'>
+                            <input type='hidden' name='locator' value='" . $invoiceData[0]['locator'] . "'>
+                            <input type='hidden' name='state' value='CANCELLED'>
+                            <input type='submit' name='action' value='Cancel'>
+                        </form>
+                    </div>";
+                }
+                ?>
+
             </div>
         </div>
     </div>
+    <script src="../../js/payButtonInvoice.js"></script>
+    <script src="../../js/cancelButtonInvoice.js"></script>
 </body>
 
 </html>

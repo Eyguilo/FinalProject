@@ -1,5 +1,5 @@
 <?php
-require("../infraestructure/logInDataAccess.php");
+require("../infraestructure/LogInDataAccess.php");
 
 class LogInBusinessLaw
 {

@@ -2,7 +2,7 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 ?>
 <!DOCTYPE html>
@@ -32,17 +32,17 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                 <div class="logAs">Log as:
                     <?php echo $dataUser->getUserId() . " - " . $dataUser->getProfileUser() ?>
                 </div>
-                <a id="logOut" href="logOutView.php">
+                <a id="logOut" href="LogOutView.php">
                     <div>Sign out</div>
                 </a>
                 <div class="title">Welcome
                     <?php echo $dataUser->getName(); ?>
                 </div>
                 <div class="links">
-                    <a href="createBookingView.php">Create booking</a>
-                    <a href="listBookingsView.php">Booking list</a>
-                    <a href="createClientView.php">Create client</a>                   
-                    <a href="listBicyclesView.php">Bicycles list</a>
+                    <a href="CreateBookingView.php">Create booking</a>
+                    <a href="ListBookingsView.php">Booking list</a>
+                    <a href="CreateClientView.php">Create client</a>                   
+                    <a href="ListBicyclesView.php">Bicycles list</a>
                     <a href="">Bicycles routes</a>
                     <a href="">Our shops</a>
                     <?php

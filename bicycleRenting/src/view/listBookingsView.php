@@ -3,22 +3,22 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 
-require_once("../logic/createBookingBusinessLaw.php");
-$createBookingBusinessLaw = new CreateBookingBusinessLaw();
+require_once("../logic/BookingBusinessLaw.php");
+$bookingBusinessLaw = new BookingBusinessLaw();
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $createBookingBusinessLaw = new CreateBookingBusinessLaw();
+    $bookingBusinessLaw = new BookingBusinessLaw();
     $filterData = array($_POST['state']);
-    $reservations = $createBookingBusinessLaw->findBooking($filterData);
+    $reservations = $bookingBusinessLaw->findBooking($filterData);
 
 } else {
     $falseFilter = "";
-    $reservations = $createBookingBusinessLaw->findBooking($falseFilter);
+    $reservations = $bookingBusinessLaw->findBooking($falseFilter);
 }
 
 ?>
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div id="container">
         <div id="homeButton">
-            <a href="menuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            <a href="MenuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                     fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                     <path
                         d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
@@ -86,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="reservationDate">Reservation date</label>
                                     </th>
                                     <th>
-                                        <label for="state">State</label>
                                         <select id="state" name="state" onchange="this.form.submit()">
                                             <?php
                                             $selectedState = isset($_POST['state']) ? $_POST['state'] : "";
@@ -126,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td>" . $booking['last_modification_date'] . "</td>
                                         <td>
                                             <div id='invoiceButton'>    
-                                                <a href='findInvoiceView.php?locator=" . $booking['code_locator'] . "'>
+                                                <a href='ShowInvoiceView.php?locator=" . $booking['code_locator'] . "'>
                                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-file-earmark-medical' viewBox='0 0 16 16'>
                                                         <path d='M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V5.5zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z'/>
                                                         <path d='M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z'/>

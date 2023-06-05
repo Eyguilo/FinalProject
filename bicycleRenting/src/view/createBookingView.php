@@ -2,14 +2,14 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 
-require_once("../logic/listBicyclesBusinessLaw.php");
-$listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
+require_once("../logic/BicyclesBusinessLaw.php");
+$bicyclesBusinessLaw = new BicyclesBusinessLaw();
 
-require_once("../logic/createBookingBusinessLaw.php");
-$createBookingBusinessLaw = new CreateBookingBusinessLaw();
+require_once("../logic/BookingBusinessLaw.php");
+$bookingBusinessLaw = new BookingBusinessLaw();
 
 $listBicyclesPostValues = array(
     'brand' => isset($_POST['brand']) ? $_POST['brand'] : '',
@@ -20,23 +20,23 @@ $listBicyclesPostValues = array(
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $listBicyclesBusinessLaw = new ListBicyclesBusinessLaw();
+    $bicyclesBusinessLaw = new BicyclesBusinessLaw();
     $filterData = array($listBicyclesPostValues['brand'], $listBicyclesPostValues['model'], $listBicyclesPostValues['size'], $listBicyclesPostValues['available']);
-    $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($filterData);
+    $filteredBicycles = $bicyclesBusinessLaw->findBicycles($filterData);
 
     if (!empty($_POST['clientList'])) {
 
         $bookingData = array($_POST['clientList'], $userId, $_POST['startDate'], $_POST['endDate'], $_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
         $dateData = array($_POST['startDate'], $_POST['endDate']);
         $bicyclesId = array($_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
-        $createBookingBusinessLaw->createBookingInvoice($bookingData, $dateData, $bicyclesId);
+        $locator = $bookingBusinessLaw->createBookingInvoice($bookingData, $dateData, $bicyclesId);
 
-        header("Location: menuStartView.php");
-        exit();
+        $url = 'ShowInvoiceView.php?locator=' . $locator;
+        header('Location: ' . $url);
     }
 } else {
     $falseFilter = "";
-    $filteredBicycles = $listBicyclesBusinessLaw->findBicycles($falseFilter);
+    $filteredBicycles = $bicyclesBusinessLaw->findBicycles($falseFilter);
 }
 
 ?>
@@ -127,10 +127,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <form id="listBicyclesForm" method="POST"
                                     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                     <th>
-                                        <label for="brand">Brand:</label>
                                         <select id="brand" name="brand" onchange="this.form.submit()">
                                             <?php
-                                            $resultBrands = $listBicyclesBusinessLaw->findBrands();
+                                            $resultBrands = $bicyclesBusinessLaw->findBrands();
                                             $valueBrand = 1;
                                             $selectedBrand = isset($_POST['brand']) ? $_POST['brand'] : "";
                                             echo "<option value='' selected>Select a brand</option>";
@@ -143,10 +142,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </select>
                                     </th>
                                     <th>
-                                        <label for="model">Model:</label>
                                         <select id="model" name="model" onchange="this.form.submit()">
                                             <?php
-                                            $resultModels = $listBicyclesBusinessLaw->findModels();
+                                            $resultModels = $bicyclesBusinessLaw->findModels();
                                             $valueModel = 1;
                                             $selectedModel = isset($_POST['model']) ? $_POST['model'] : "";
                                             echo "<option value='' selected>Select a model</option>";
@@ -159,10 +157,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </select>
                                     </th>
                                     <th>
-                                        <label for="size">Size:</label>
                                         <select id="size" name="size" onchange="this.form.submit()">
                                             <?php
-                                            $resultSizes = $listBicyclesBusinessLaw->findSizes();
+                                            $resultSizes = $bicyclesBusinessLaw->findSizes();
                                             $valueSize = 1;
                                             $selectedSize = isset($_POST['size']) ? $_POST['size'] : "";
                                             echo "<option value='' selected>Select a size</option>";
@@ -181,7 +178,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="brand">Price / hour</label>
                                     </th>
                                     <th>
-                                        <label for="available">Available</label>
                                         <select id="available" name="available" onchange="this.form.submit()">
                                             <?php
                                             $selectedAvailable = isset($_POST['available']) ? $_POST['available'] : "";

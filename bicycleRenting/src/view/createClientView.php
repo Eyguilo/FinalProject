@@ -2,13 +2,16 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 
-require_once("../logic/createClientBusinessLaw.php");
+require_once("../logic/ClientBusinessLaw.php");
+$clientBusinessLaw = new ClientBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $createClientBusinessLaw = new CreateClientBusinessLaw();
+
+    $createClientBusinessLaw = new ClientBusinessLaw();
+
     $clientData = $createClientBusinessLaw->createClient(
         $_POST['clientName'],
         $_POST['clientLastName'],
@@ -18,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_POST['postalCode']
     );
 
-    header("Location: menuStartView.php");
+    header("Location: MenuStartView.php");
 }
 ?>
 <!DOCTYPE html>
@@ -37,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div id="central">
             <div id="create">
                 <div id="back-button">
-                    <a href="menuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    <a href="MenuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                             <path
                                 d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
@@ -46,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </a>
                 </div>
                 <div class="title">Create client</div>
-                <form method="POST" action="createClientView.php">
+                <form method="POST" action="CreateClientView.php">
                     <div class="form-group">
                         <label for="clientName">Client name:</label>
                         <input type="text" id="clientName" name="clientName" autocomplete="off">

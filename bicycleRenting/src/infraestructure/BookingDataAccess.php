@@ -3,7 +3,7 @@
 ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
-class CreateBookingDataAccess
+class BookingDataAccess
 {
 
     function __construct()
@@ -96,12 +96,27 @@ class CreateBookingDataAccess
 
         $result = $query->get_result();
 
-        $booking =  array();
+        $booking = array();
         while ($myrow = $result->fetch_assoc()) {
             array_push($booking, $myrow);
         }
 
         return $booking;
+    }
+    function updateStateBooking($locator, $state)
+    {
+
+        $connection = mysqli_connect('localhost', 'root', '1234');
+        if (mysqli_connect_errno()) {
+            echo "Error connecting to MySQL: " . mysqli_connect_error();
+        }
+
+        mysqli_select_db($connection, 'db_bicycle_renting');
+        $query = mysqli_prepare($connection, "UPDATE T_Reservations r SET r.last_modification_date = NOW(), r.state_reservation = '" . $state . "' WHERE code_locator = (?);");
+        $query->bind_param("s", $locator);
+        $query->execute();
+
+        $this->queryError($query, $connection);
     }
 
     private function queryError($query, $connection)
