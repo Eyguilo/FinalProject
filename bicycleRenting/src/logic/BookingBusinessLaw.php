@@ -53,7 +53,19 @@ class BookingBusinessLaw
         FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client WHERE 1 = 1";
 
         if (!empty($filter[0])) {
-            $query .= " AND r.state_reservation LIKE '" . $filter[0] . "'";
+            $query .= " AND BINARY r.code_locator LIKE '" . $filter[0] . "%'";
+        }
+
+        if (!empty($filter[2])) {
+            $query .= " AND r.state_reservation LIKE '" . $filter[2] . "'";
+        }
+
+        if (!empty($filter[1])) {
+            if ($filter[1] == "NEWEST") {
+                $query .= " ORDER BY r.reservation_date DESC";
+            } elseif ($filter[1] == "OLDEST") {
+                $query .= " ORDER BY r.reservation_date ASC";
+            }
         }
 
         $createBookingDataAccess = new BookingDataAccess();
@@ -72,7 +84,7 @@ class BookingBusinessLaw
 
     function updateStateBooking($locator, $state)
     {
-        
+
         $bookingDataAccess = new BookingDataAccess();
         $bookingDataAccess->updateStateBooking($locator, $state);
 
