@@ -49,8 +49,8 @@ class BookingBusinessLaw
 
     function findBooking($filter)
     {
-        $query = "SELECT r.code_locator, c.name, c.last_name, r.id_user,  r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, r.reservation_date, r.state_reservation, r.last_modification_date 
-        FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client WHERE 1 = 1";
+        $query = "SELECT r.code_locator, c.name, c.last_name, r.id_user,  r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, i.reservation_date, r.state_reservation, r.last_modification_date 
+        FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client INNER JOIN T_Invoices i ON r.code_locator = r.code_locator WHERE 1 = 1";
 
         if (!empty($filter[0])) {
             $query .= " AND BINARY r.code_locator LIKE '" . $filter[0] . "%'";
@@ -62,9 +62,9 @@ class BookingBusinessLaw
 
         if (!empty($filter[1])) {
             if ($filter[1] == "NEWEST") {
-                $query .= " ORDER BY r.reservation_date DESC";
+                $query .= " ORDER BY i.reservation_date DESC";
             } elseif ($filter[1] == "OLDEST") {
-                $query .= " ORDER BY r.reservation_date ASC";
+                $query .= " ORDER BY i.reservation_date ASC";
             }
         }
 
@@ -87,6 +87,14 @@ class BookingBusinessLaw
 
         $bookingDataAccess = new BookingDataAccess();
         $bookingDataAccess->updateStateBooking($locator, $state);
+
+    }
+
+    function deleteBooking($locator)
+    {
+
+        $bookingDataAccess = new BookingDataAccess();
+        $bookingDataAccess->deleteBooking($locator);
 
     }
 

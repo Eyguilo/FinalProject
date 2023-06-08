@@ -41,13 +41,14 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                 <div class="links">
                     <a href="CreateBookingView.php">Create booking</a>
                     <a href="ListBookingsView.php">Booking list</a>
-                    <a href="CreateClientView.php">Create client</a>                   
+                    <a href="CreateClientView.php">Create client</a> 
+                    <a href="ListClientsView.php"> Client list</a>                  
                     <a href="ListBicyclesView.php">Bicycles list</a>
-                    <a href="">Bicycles routes</a>
-                    <a href="">Our shops</a>
                     <?php
                     if ($dataUser->getProfileUser() === "Administrator") {
-                        echo "<a href=''>Create user</a>";
+                        echo "
+                        <a href='createUserView.php'>Create user</a>
+                        <a href='listUserView.php'>User list</a>";
                     }
                     ?>
                 </div>

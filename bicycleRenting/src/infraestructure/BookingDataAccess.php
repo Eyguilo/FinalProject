@@ -25,8 +25,8 @@ class BookingDataAccess
 
         $this->queryError($query, $connection);
 
-        $query = mysqli_prepare($connection, "INSERT INTO T_Invoices (code_locator, total_price, id_client, id_user) VALUES (?, ?, ?, ?);");
-        $query->bind_param("sdis", $locator, $totalPrice, $bookingData[0], $bookingData[1]);
+        $query = mysqli_prepare($connection, "INSERT INTO T_Invoices (code_locator, total_price) VALUES (?, ?);");
+        $query->bind_param("sd", $locator, $totalPrice);
         $query->execute();
 
         $this->queryError($query, $connection);
@@ -86,7 +86,7 @@ class BookingDataAccess
 
         mysqli_select_db($connection, 'db_bicycle_renting');
 
-        $query = mysqli_prepare($connection, "SELECT r.code_locator locator, c.name, c.last_name, r.id_user,  r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, r.reservation_date, r.state_reservation, r.last_modification_date, i.total_price
+        $query = mysqli_prepare($connection, "SELECT r.code_locator locator, c.name, c.last_name, r.id_user,  r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, i.reservation_date, r.state_reservation, r.last_modification_date, i.total_price
         FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client INNER JOIN T_Invoices i ON r.code_locator = r.code_locator WHERE r.code_locator = (?);");
         $locatorSanitized = mysqli_real_escape_string($connection, $locator);
         $query->bind_param("s", $locatorSanitized);
@@ -119,12 +119,25 @@ class BookingDataAccess
         $this->queryError($query, $connection);
     }
 
+    function deleteBooking($locator)
+    {
+        $connection = mysqli_connect('localhost', 'root', '1234');
+        if (mysqli_connect_errno()) {
+            echo "Error connecting to MySQL: " . mysqli_connect_error();
+        }
+    
+        mysqli_select_db($connection, 'db_bicycle_renting');
+        $query = mysqli_prepare($connection, "DELETE FROM T_Reservations WHERE code_locator = (?)");
+        $query->bind_param("s", $locator);
+        $query->execute();
+    
+        $this->queryError($query, $connection);
+    }
     private function queryError($query, $connection)
     {
 
         if ($query === false) {
             echo "Error executing query: " . mysqli_error($connection);
-            return false;
         }
     }
 }

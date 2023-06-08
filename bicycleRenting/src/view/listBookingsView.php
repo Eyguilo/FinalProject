@@ -108,9 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <th>
                                         <label for="modification">Last modification</label>
                                     </th>
-                                    <th>
-                                        <label for="invoice">Invoice</label>
-                                    </th>
+                                    <th></th>
                                 </form>
                             </tr>
                         </thead>

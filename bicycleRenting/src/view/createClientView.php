@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_POST['postalCode']
     );
 
-    header("Location: MenuStartView.php");
+    header("Location: CreateBookingView.php");
 }
 ?>
 <!DOCTYPE html>
@@ -52,11 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form method="POST" action="CreateClientView.php">
                     <div class="form-group">
                         <label for="clientName">Client name:</label>
-                        <input type="text" id="clientName" name="clientName" autocomplete="off">
+                        <input type="text" id="clientName" name="clientName" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="clientLastName">Last name:</label>
-                        <input type="text" id="clientLastName" name="clientLastName" autocomplete="off">
+                        <input type="text" id="clientLastName" name="clientLastName" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
@@ -70,12 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="form-group">
                         <label for="address">Address:</label>
-                        <input type="text" id="address" name="address" autocomplete="off">
+                        <input type="text" id="address" name="address" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="postalCode">Postal code:</label>
                         <input type="text" id="postalCode" name="postalCode" autocomplete="off" pattern="[0-9]{5}"
-                            placeholder="07180" required autocomplete="off">
+                            placeholder="07180" autocomplete="off">
                     </div>
                     <input type="submit" value="Create client">
                 </form>
