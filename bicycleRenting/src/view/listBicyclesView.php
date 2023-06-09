@@ -5,11 +5,11 @@ if (!isset($userId)) {
     header("Location: logInView.php");
 }
 
-require_once("../logic/BicyclesBusinessLaw.php");
-$bicyclesBusinessLaw = new BicyclesBusinessLaw();
+require_once("../logic/BicycleBusinessLaw.php");
+$bicyclesBusinessLaw = new BicycleDataAccess();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $bicyclesBusinessLaw = new BicyclesBusinessLaw();
+    $bicyclesBusinessLaw = new BicycleDataAccess();
     $filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
     $filteredBicycles = $bicyclesBusinessLaw->findBicycles($filterData);
 } else {

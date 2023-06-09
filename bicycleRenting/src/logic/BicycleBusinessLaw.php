@@ -2,9 +2,9 @@
 ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
-require_once("../infraestructure/BicyclesDataAccess.php");
+require_once("../infraestructure/BicycleDataAccess.php");
 
-class BicyclesBusinessLaw
+class BicycleBusinessLaw
 {
     public function __construct()
     {
@@ -38,7 +38,7 @@ class BicyclesBusinessLaw
             }
         }
 
-        $bicyclesDataAccess = new BicyclesDataAccess();
+        $bicyclesDataAccess = new BicycleDataAccess();
         $result = $bicyclesDataAccess->findBicycles($query);
 
         return $result;
@@ -46,7 +46,7 @@ class BicyclesBusinessLaw
 
     public function findBrands()
     {
-        $bicyclesDataAccess = new BicyclesDataAccess();
+        $bicyclesDataAccess = new BicycleDataAccess();
         $result = $bicyclesDataAccess->findBrands();
 
         $brands = array();
@@ -58,7 +58,7 @@ class BicyclesBusinessLaw
 
     public function findModels()
     {
-        $bicyclesDataAccess = new BicyclesDataAccess();
+        $bicyclesDataAccess = new BicycleDataAccess();
         $result = $bicyclesDataAccess->findModels();
 
         $models = array();
@@ -70,7 +70,7 @@ class BicyclesBusinessLaw
 
     public function findSizes()
     {
-        $bicyclesDataAccess = new BicyclesDataAccess();
+        $bicyclesDataAccess = new BicycleDataAccess();
         $result = $bicyclesDataAccess->findSizes();
 
         $sizes = array();

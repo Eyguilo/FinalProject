@@ -40,7 +40,7 @@ function findClients() {
     };
 
     xmlhttp.open(
-        "GET", `../infraestructure/onlyFindClientsDataAccess.php?name=${name}&lastName=${lastName}`, true
+        "GET", `../infraestructure/other/FindClientsDataAccess.php?name=${name}&lastName=${lastName}`, true
     );
     xmlhttp.send();
 }
