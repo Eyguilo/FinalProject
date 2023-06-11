@@ -1,14 +1,14 @@
 <?php
-    require("../infraestructure/logInDataAccess.php");
+    require("../infraestructure/UserDataAccess.php");
 
     function test_alta_usuario() {
-        $u = new LogInDataAccess();
-        return $u->addUser('JMGL000', 'Jaume', 'Piza', '1234', 'Administrator');        
+        $u = new UserDataAccess();
+        return $u->createUser('JMGL000', 'Jaume', 'Piza', '1234', 'Administrator');        
     }
 
     function test_verificar_usuario_encontrado() {
         $perfil_esperado = 'Administrator';
-        $u = new LogInDataAccess();
+        $u = new UserDataAccess();
         $perfil = $u->verifyUser('JMGL000','1234');
         return $perfil === $perfil_esperado;
     }

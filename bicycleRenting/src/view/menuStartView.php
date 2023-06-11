@@ -47,8 +47,8 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                     <?php
                     if ($dataUser->getProfileUser() === "Administrator") {
                         echo "
-                        <a href='createUserView.php'>Create user</a>
-                        <a href='listUserView.php'>User list</a>";
+                        <a href='CreateUserView.php'>Create user</a>
+                        <a href='ListUsersView.php'>User list</a>";
                     }
                     ?>
                 </div>

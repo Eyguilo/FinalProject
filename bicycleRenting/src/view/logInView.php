@@ -1,8 +1,8 @@
 <?php
-require("../logic/LogInBusinessLaw.php");
+require("../logic/UserBusinessLaw.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $logInBusinessLaw = new LogInBusinessLaw();
+    $logInBusinessLaw = new UserBusinessLaw();
     $profileUser = $logInBusinessLaw->verifyUser($_POST['userId'], $_POST['keyUser']);
 
     if ($profileUser === "Administrator" || $profileUser === "Worker") {
