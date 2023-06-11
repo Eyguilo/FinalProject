@@ -46,7 +46,7 @@ class BookingBusinessLaw
         $bookingDataAccess->createBooking($bookingData, $locator, $totalPrice);
 
         $bicycleBusinessLaw = new BicycleBusinessLaw();
-        $bicycleBusinessLaw->updateNotAvailableBicyle($bicyclesId);
+        $bicycleBusinessLaw->updateToNotAvailableBicyle($bicyclesId);
 
         return $locator;
     }

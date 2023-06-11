@@ -84,6 +84,7 @@ class BicycleBusinessLaw
     function updateToNotAvailableBicyle($bicyclesId)
     {
         $bicycleDataAccess = new BicycleDataAccess();
+
         foreach ($bicyclesId as $id) {
             $bicycleDataAccess->updateToNotAvailableBicycle($id);
         }
@@ -93,15 +94,14 @@ class BicycleBusinessLaw
     {
         $bookingBusinessLaw = new BookingBusinessLaw();
         $bicycleDataAccess = new BicycleDataAccess();
-        
+
         $booking = $bookingBusinessLaw->findInvoiceBookingByLocator($locator);
 
-        $bicyclesListToAvailable = array($booking[5], $booking[6], $booking[7], $booking[8]);
+        $bicyclesListToAvailable = array($booking[0]['id_bicycle_1'], $booking[0]['id_bicycle_2'], $booking[0]['id_bicycle_3'], $booking[0]['id_bicycle_4']);
 
         foreach ($bicyclesListToAvailable as $idBicycle) {
-            if($idBicycle != null){
-                $bicycleDataAccess->updateToAvailableBicycle($idBicycle);
-            }
+            
+            $bicycleDataAccess->updateToAvailableBicycle($idBicycle);
         }
     }
 }

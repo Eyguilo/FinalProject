@@ -147,3 +147,7 @@ input[type="submit"]:hover {
 .unavailable:hover{
     background-color: #a07575;
 }
+
+input[type="text"]{
+    width: 50px;
+}

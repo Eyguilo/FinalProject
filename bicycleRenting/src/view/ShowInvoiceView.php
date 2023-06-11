@@ -11,10 +11,17 @@ require_once("../logic/BicycleBusinessLaw.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if (isset($_POST['locatorToUpdate'])) {
+    if (isset($_POST['locatorToPay'])) {
 
         $bookingBusinessLaw = new BookingBusinessLaw();
-        $bookingBusinessLaw->updateStateBooking($_POST['locatorToUpdate'], $_POST['state']);
+        $bookingBusinessLaw->updateStateBooking($_POST['locatorToPay'], $_POST['state']);
+        header("Location: ListBookingsView.php");
+
+    } else if (isset($_POST['locatorToCancel'])) {
+        $bookingBusinessLaw = new BookingBusinessLaw();
+        $bicycleBusinessLaw = new BicycleBusinessLaw();
+        $bookingBusinessLaw->updateStateBooking($_POST['locatorToCancel'], $_POST['state']);
+        $bicycleBusinessLaw->updateToAvailableBicycle($_POST['locatorToCancel']);
         header("Location: ListBookingsView.php");
 
     } else if (isset($_POST['locatorToEliminate'])) {
@@ -173,14 +180,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "                
                     <div class='groupButton'>
                         <form id='payInvoice' method='POST' action='ShowInvoiceView.php'>
-                            <input type='hidden' name='locatorToUpdate' value='" . $invoiceData[0]['locator'] . "'>
+                            <input type='hidden' name='locatorToPay' value='" . $invoiceData[0]['locator'] . "'>
                             <input type='hidden' name='state' value='PAID'>
                             <input type='submit' name='actionUpdate' value='Pay'>
                         </form>
                     </div>
                     <div class='groupButton'>
                         <form id='cancelInvoice' method='POST' action='ShowInvoiceView.php'>
-                            <input type='hidden' name='locatorToUpdate' value='" . $invoiceData[0]['locator'] . "'>
+                            <input type='hidden' name='locatorToCancel' value='" . $invoiceData[0]['locator'] . "'>
                             <input type='hidden' name='state' value='CANCELLED'>
                             <input type='submit' name='actionUpdate' value='Cancel'>
                         </form>
