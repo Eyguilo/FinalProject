@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($profileUser === "Administrator" || $profileUser === "Worker") {
         session_start();
         $_SESSION['userId'] = $_POST['userId'];
+        $_SESSION['profile'] = $profileUser;
         header("Location: MenuStartView.php");
     } else {
         $error = true;

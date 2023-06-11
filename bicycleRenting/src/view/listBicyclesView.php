@@ -6,10 +6,9 @@ if (!isset($userId)) {
 }
 
 require_once("../logic/BicycleBusinessLaw.php");
-$bicyclesBusinessLaw = new BicycleDataAccess();
+$bicyclesBusinessLaw = new BicycleBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $bicyclesBusinessLaw = new BicycleDataAccess();
     $filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
     $filteredBicycles = $bicyclesBusinessLaw->findBicycles($filterData);
 } else {

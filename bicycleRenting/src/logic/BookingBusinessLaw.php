@@ -3,6 +3,7 @@ ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
 require_once("../infraestructure/BookingDataAccess.php");
+require_once("BicycleBusinessLaw.php");
 
 class BookingBusinessLaw
 {
@@ -44,13 +45,16 @@ class BookingBusinessLaw
 
         $bookingDataAccess->createBooking($bookingData, $locator, $totalPrice);
 
+        $bicycleBusinessLaw = new BicycleBusinessLaw();
+        $bicycleBusinessLaw->updateNotAvailableBicyle($bicyclesId);
+
         return $locator;
     }
 
     function findBooking($filter)
     {
         $query = "SELECT r.code_locator, c.name, c.last_name, r.id_user,  r.start_date, r.end_date, r.id_bicycle_1, r.id_bicycle_2, r.id_bicycle_3, r.id_bicycle_4, i.reservation_date, r.state_reservation, r.last_modification_date 
-        FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client INNER JOIN T_Invoices i ON r.code_locator = r.code_locator WHERE 1 = 1";
+        FROM T_Reservations r INNER JOIN T_Clients c ON r.id_client = c.id_client INNER JOIN T_Invoices i ON r.code_locator = i.code_locator WHERE 1 = 1";
 
         if (!empty($filter[0])) {
             $query .= " AND BINARY r.code_locator LIKE '" . $filter[0] . "%'";

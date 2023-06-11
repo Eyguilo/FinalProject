@@ -127,12 +127,13 @@ class BookingDataAccess
         }
     
         mysqli_select_db($connection, 'db_bicycle_renting');
-        $query = mysqli_prepare($connection, "DELETE FROM T_Reservations WHERE code_locator = (?)");
+        $query = mysqli_prepare($connection, "DELETE FROM T_Reservations r WHERE r.code_locator = (?)");
         $query->bind_param("s", $locator);
         $query->execute();
     
         $this->queryError($query, $connection);
     }
+
     private function queryError($query, $connection)
     {
 

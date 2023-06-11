@@ -38,6 +38,12 @@ body {
     margin-left: 45px;
 }
 
+.groupButton {
+    float: left;
+    margin-left: 45px;
+    margin-top: 10px;
+}
+
 .form-group {
     margin-bottom: 20px;
     width: 200px;

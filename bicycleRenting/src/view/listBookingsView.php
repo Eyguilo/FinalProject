@@ -12,7 +12,6 @@ $bookingBusinessLaw = new BookingBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $bookingBusinessLaw = new BookingBusinessLaw();
     $filterData = array($_POST['locator'], $_POST['reservationDate'], $_POST['state']);
     $reservations = $bookingBusinessLaw->findBooking($filterData);
 
@@ -102,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             echo "<option value='PENDING' " . ($selectedState == 'PENDING' ? 'selected' : '') . ">PENDING</option>";
                                             echo "<option value='PAID' " . ($selectedState == 'PAID' ? 'selected' : '') . ">PAID</option>";
                                             echo "<option value='CANCELLED' " . ($selectedState == 'CANCELLED' ? 'selected' : '') . ">CANCELLED</option>";
+                                            echo "<option value='FINISHED' " . ($selectedState == 'FINISHED' ? 'selected' : '') . ">FINISHED</option>";
                                             ?>
                                         </select>
                                     </th>
@@ -149,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </table>
                     <?php
                     if ($reservations->num_rows == 0) {
-                        echo "<label class='errorLabel'>Not found booking/s with that parameter/s</label>";
+                        echo "<label class='errorLabel'>Not found booking/s</label>";
                     }
                     ?>
                 </div>

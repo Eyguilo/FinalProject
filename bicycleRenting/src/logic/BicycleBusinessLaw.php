@@ -3,6 +3,7 @@ ini_set('display_errors', 'On');
 ini_set('html_errors', 1);
 
 require_once("../infraestructure/BicycleDataAccess.php");
+require_once("BookingBusinessLaw.php");
 
 class BicycleBusinessLaw
 {
@@ -78,5 +79,29 @@ class BicycleBusinessLaw
             array_push($sizes, $myrow);
         }
         return $sizes;
+    }
+
+    function updateToNotAvailableBicyle($bicyclesId)
+    {
+        $bicycleDataAccess = new BicycleDataAccess();
+        foreach ($bicyclesId as $id) {
+            $bicycleDataAccess->updateToNotAvailableBicycle($id);
+        }
+    }
+
+    function updateToAvailableBicycle($locator)
+    {
+        $bookingBusinessLaw = new BookingBusinessLaw();
+        $bicycleDataAccess = new BicycleDataAccess();
+        
+        $booking = $bookingBusinessLaw->findInvoiceBookingByLocator($locator);
+
+        $bicyclesListToAvailable = array($booking[5], $booking[6], $booking[7], $booking[8]);
+
+        foreach ($bicyclesListToAvailable as $idBicycle) {
+            if($idBicycle != null){
+                $bicycleDataAccess->updateToAvailableBicycle($idBicycle);
+            }
+        }
     }
 }

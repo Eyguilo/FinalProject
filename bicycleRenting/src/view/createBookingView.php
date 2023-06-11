@@ -5,8 +5,8 @@ if (!isset($userId)) {
     header("Location: LogInView.php");
 }
 
-require_once("../logic/BicyclesBusinessLaw.php");
-$bicyclesBusinessLaw = new BicyclesBusinessLaw();
+require_once("../logic/BicycleBusinessLaw.php");
+$bicyclesBusinessLaw = new BicycleBusinessLaw();
 
 require_once("../logic/BookingBusinessLaw.php");
 $bookingBusinessLaw = new BookingBusinessLaw();
@@ -20,7 +20,7 @@ $listBicyclesPostValues = array(
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $bicyclesBusinessLaw = new BicyclesBusinessLaw();
+    $bicyclesBusinessLaw = new BicycleBusinessLaw();
     $filterData = array($listBicyclesPostValues['brand'], $listBicyclesPostValues['model'], $listBicyclesPostValues['size'], $listBicyclesPostValues['available']);
     $filteredBicycles = $bicyclesBusinessLaw->findBicycles($filterData);
 

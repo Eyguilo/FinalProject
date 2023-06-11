@@ -82,6 +82,36 @@ class BicycleDataAccess
         return $result;
     }
 
+    function updateToNotAvailablebicycle($idBicycle)
+    {
+        $connection = mysqli_connect('localhost', 'root', '1234');
+        if (mysqli_connect_errno()) {
+            echo "Error connecting to MySQL: " . mysqli_connect_error();
+        }
+
+        mysqli_select_db($connection, 'db_bicycle_renting');
+        $query = mysqli_prepare($connection, "UPDATE T_Bicycles b SET b.available = 0 WHERE b.id_bicycle = (?);");
+        $query->bind_param("i", $idBicycle);
+        $query->execute();
+
+        $this->queryError($query, $connection);
+    }
+
+    function updateToAvailableBicycle($idBicycle)
+    {
+        $connection = mysqli_connect('localhost', 'root', '1234');
+        if (mysqli_connect_errno()) {
+            echo "Error connecting to MySQL: " . mysqli_connect_error();
+        }
+
+        mysqli_select_db($connection, 'db_bicycle_renting');
+        $query = mysqli_prepare($connection, "UPDATE T_Bicycles b SET b.available = 1 WHERE b.id_bicycle = (?);");
+        $query->bind_param("i", $idBicycle);
+        $query->execute();
+
+        $this->queryError($query, $connection);
+    }
+
     private function queryError($query, $connection)
     {
 
