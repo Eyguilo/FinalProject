@@ -45,7 +45,7 @@ CREATE TABLE T_Bicycles (
     id_brand INT(5) NOT NULL,
     id_model INT(5) NOT NULL,
     id_size INT(5) NOT NULL,
-    color VARCHAR(255),
+    color VARCHAR(255) NOT NULL,
     rental_price_hour DECIMAL(6 , 2 ) NOT NULL,
     available TINYINT(1) NOT NULL DEFAULT 1,
     FOREIGN KEY (id_model)
@@ -66,11 +66,11 @@ CREATE TABLE T_Reservations (
     id_bicycle_2 INT(5),
     id_bicycle_3 INT(5),
     id_bicycle_4 INT(5),
-    reservation_date DATETIME NOT NULL DEFAULT NOW(),
     state_reservation VARCHAR(25) NOT NULL DEFAULT 'PENDING',
-    last_modification_date DATE,
+    last_modification_date DATETIME,
     FOREIGN KEY (id_client)
-        REFERENCES T_Clients (id_client),
+        REFERENCES T_Clients (id_client)
+        ON DELETE CASCADE,
     FOREIGN KEY (id_user)
         REFERENCES T_Users (id_user),
     FOREIGN KEY (id_bicycle_1)
@@ -86,14 +86,10 @@ CREATE TABLE T_Reservations (
 CREATE TABLE T_Invoices (
     code_locator VARCHAR(6) PRIMARY KEY,
     total_price DECIMAL(6 , 2 ) NOT NULL,
-    id_client INT(5) NOT NULL,
-    id_user VARCHAR(7) NOT NULL,
+    reservation_date DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY (code_locator)
-        REFERENCES T_Reservations (code_locator),
-    FOREIGN KEY (id_client)
-        REFERENCES T_Clients (id_client),
-    FOREIGN KEY (id_user)
-        REFERENCES T_Users (id_user)
+        REFERENCES T_Reservations (code_locator)
+        ON DELETE CASCADE
 );
 
 INSERT INTO T_Users (id_user, name, last_name, key_user, profile_user) 
@@ -180,13 +176,6 @@ FROM T_Brands b, T_Models m, T_Size s,
       UNION ALL SELECT 'Green' UNION ALL SELECT 'Grey') c
 ORDER BY RAND()
 LIMIT 200;
-
-INSERT INTO T_Reservations (code_locator, id_client, id_user,  start_date, end_date, id_bicycle_1, state_reservation)
-VALUES ('ABC123', 1, 'JMGL000', '2023-05-20', '2023-05-25', 1, 'CANCELLED');
-INSERT INTO T_Reservations (code_locator, id_client, id_user, start_date, end_date, id_bicycle_1, state_reservation)
-VALUES ('DEF456',2, 'JMGL000', '2023-06-01', '2023-06-05', 2, 'PENDING');
-INSERT INTO T_Reservations (code_locator, id_client, id_user, start_date, end_date, id_bicycle_1, state_reservation)
-VALUES ('GHI789', 3, 'JMGL000', '2023-07-10', '2023-07-15', 3, 'PAID');
 
 INSERT INTO T_Bicycles (id_brand, id_model, id_size, color, rental_price_hour, available) VALUES (1,1,1, 'Grey', 777, 0);
 INSERT INTO T_Bicycles (id_brand, id_model, id_size, color, rental_price_hour, available) VALUES (1,2,1, 'Grey', 200, 0);

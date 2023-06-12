@@ -72,6 +72,10 @@ class BookingBusinessLaw
             }
         }
 
+        if (!empty($filter[3])) {
+            $query .= " AND BINARY r.id_user LIKE '" . $filter[3] . "%'";
+        }
+
         $createBookingDataAccess = new BookingDataAccess();
         $result = $createBookingDataAccess->listBookings($query);
 

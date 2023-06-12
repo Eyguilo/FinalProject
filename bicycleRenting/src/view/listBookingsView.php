@@ -12,7 +12,7 @@ $bookingBusinessLaw = new BookingBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $filterData = array($_POST['locator'], $_POST['reservationDate'], $_POST['state']);
+    $filterData = array($_POST['locator'], $_POST['reservationDate'], $_POST['state'], $_POST['userCode']);
     $reservations = $bookingBusinessLaw->findBooking($filterData);
 
 } else {
@@ -62,7 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="idUser">Client</label>
                                     </th>
                                     <th>
-                                        <label for="locator">ID User</label>
+                                    <input type="text" id="userCode" name="userCode" autocomplete="off"
+                                            placeholder="JMGL000" onchange="this.form.submit()">
                                     </th>
                                     <th>
                                         <label for="startDate">Start date</label>
@@ -116,7 +117,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php
                             if ($reservations->num_rows != 0) {
                                 foreach ($reservations as $booking) {
-                                    $availabilityClass = ($booking['state_reservation'] == "CANCELLED") ? 'unavailable' : '';
+                                    switch ($booking['state_reservation']) {
+                                        case 'CANCELLED':
+                                            $availabilityClass = 'unavailable';
+                                            break;
+                                        case 'PAID':
+                                            $availabilityClass = 'paid';
+                                            break;
+                                        case 'FINISHED':
+                                            $availabilityClass = 'finished';
+                                            break;
+                                        default:
+                                            $availabilityClass = '';
+                                            break;
+                                        }
                                     echo "
                                         <tr class='" . $availabilityClass . "'>
                                             <td>" . $booking['code_locator'] . "</td>

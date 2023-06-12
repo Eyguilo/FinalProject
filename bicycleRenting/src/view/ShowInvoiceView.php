@@ -220,8 +220,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-    <script src="../../js/payButtonInvoice.js"></script>
-    <script src="../../js/cancelButtonInvoice.js"></script>
+    <script src="../../js/PayButtonInvoice.js"></script>
+    <script src="../../js/CancelButtonInvoice.js"></script>
     <script src="../../js/EliminateButtonInvoice.js"></script>
 </body>
 

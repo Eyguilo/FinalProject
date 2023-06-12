@@ -19,6 +19,7 @@ body {
     max-width: 1700px;
     width: 100%;
     margin: 0 auto;
+    margin-right: 130px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -77,17 +78,10 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"] {
-    width: 50%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #f2f2f2;
-    font-size: 16px;
-    color: #333;
-}
-
-select {
+input[type="text"],
+input[type="password"],
+select,
+textarea {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -122,14 +116,14 @@ input[type="submit"]:hover {
     background-color: #0069d9;
 }
 
-#homeButton {
+#back-button {
     position: absolute;
     top: 30px;
     left: 30px;
     width: 100px;
 }
 
-#homeButton a {
+#back-button a {
     display: inline-block;
     padding: 10px 20px;
     background-color: #007bff;
@@ -141,11 +135,24 @@ input[type="submit"]:hover {
     transition: background-color 0.2s ease-in-out;
 }
 
-#homeButton a:hover {
+#back-button a:hover {
     background-color: #0069d9;
 }
 
-#invoiceButton a {
+.unavailable,
+.unavailable:nth-child(even) {
+    background-color: #ffbaba;
+}
+
+.unavailable:hover{
+    background-color: #a07575;
+}
+
+input[type="text"]{
+    width: 50px;
+}
+
+#deleteClient {
     display: inline-block;
     padding: 5px;
     background-color: #007bff;
@@ -155,41 +162,9 @@ input[type="submit"]:hover {
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.2s ease-in-out;
+    border: none;
 }
 
-#invoiceButton a:hover {
+#deleteClient:hover {
     background-color: #0069d9;
-}
-
-.unavailable,
-.unavailable:nth-child(even) {
-    background-color: #ffeeba;
-}
-
-.unavailable:hover {
-    background-color: #a08c75;
-}
-.paid,
-.paid:nth-child(even) {
-    background-color: #bafff5;
-}
-
-.paid:hover {
-    background-color: #759ba0;
-}
-
-.finished,
-.finished:nth-child(even) {
-    background-color: #d2ffba;
-}
-
-.finished:hover {
-    background-color: #85a075;
-}
-
-.errorLabel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
 }
