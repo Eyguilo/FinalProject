@@ -76,6 +76,18 @@ class BookingBusinessLaw
             $query .= " AND BINARY r.id_user LIKE '" . $filter[3] . "%'";
         }
 
+        if (!empty($filter[4])) {
+            $nameParts = explode(' ', $filter[4]);
+            $nameClient = $nameParts[0];
+            $lastNameClient = isset($nameParts[1]) ? $nameParts[1] : '';
+    
+            $query .= " AND c.name LIKE '" . $nameClient . "%'";
+
+            if($lastNameClient != ''){
+                $query .= " AND c.last_name LIKE '" . $lastNameClient . "%'";
+            }
+        }
+
         $createBookingDataAccess = new BookingDataAccess();
         $result = $createBookingDataAccess->listBookings($query);
 

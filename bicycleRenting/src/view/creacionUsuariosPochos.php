@@ -3,7 +3,8 @@
 
     function test_alta_usuario() {
         $u = new UserDataAccess();
-        return $u->createUser('JMGL000', 'Jaume', 'Piza', '1234', 'Administrator');        
+        $createUser = array('JMGL000', 'Jaume', 'Piza', '1234', 'Administrator');
+        return $u->createUser($createUser);        
     }
 
     function test_verificar_usuario_encontrado() {

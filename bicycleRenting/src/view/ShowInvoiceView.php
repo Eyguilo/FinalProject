@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($invoiceData[0]['state_reservation'] != "FINISHED") {
                     echo "
                     <div class='groupButton'>
-                        <form id='eliminateInvoice' method='POST' action='ShowInvoiceView.php'>
+                        <form id='finishInvoice' method='POST' action='ShowInvoiceView.php'>
                             <input type='hidden' name='locatorToFinished' value='" . $invoiceData[0]['locator'] . "'>
                             <input type='hidden' name='state' value='FINISHED'>
                             <input type='submit' name='actionFinished' value='Finished'>
@@ -223,6 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="../../js/PayButtonInvoice.js"></script>
     <script src="../../js/CancelButtonInvoice.js"></script>
     <script src="../../js/EliminateButtonInvoice.js"></script>
+    <script src="../../js/FinishButtonInvoice.js"></script>
 </body>
 
 </html>

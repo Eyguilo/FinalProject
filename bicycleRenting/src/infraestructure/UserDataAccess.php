@@ -81,6 +81,23 @@ class UserDataAccess
         }
     }
 
+    public function deleteUser($userCode)
+    {
+        $connection = mysqli_connect('localhost', 'root', '1234');
+        if (mysqli_connect_errno()) {
+            echo "Error connecting to MySQL: " . mysqli_connect_error();
+        }
+
+        mysqli_select_db($connection, 'db_bicycle_renting');
+        $query = mysqli_prepare($connection, "DELETE FROM T_Users WHERE id_user = (?)");
+        $query->bind_param("s", $userCode);
+        $result = $query->execute();
+
+        $this->queryError($query, $connection);
+
+        return $result;
+    }
+
     private function queryError($query, $connection)
     {
 

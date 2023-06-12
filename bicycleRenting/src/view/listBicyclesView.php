@@ -2,7 +2,7 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 
 require_once("../logic/BicycleBusinessLaw.php");

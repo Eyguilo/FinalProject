@@ -2,21 +2,34 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 
 require_once("../logic/UserBusinessLaw.php");
 $userBusinessLaw = new UserBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $filterData = array($_POST['userCode'], $_POST['userProfile']);
     $filteredUsers = $userBusinessLaw->listUsers($filterData);
+
+    if (!empty($_POST['userCode'])) {
+
+        if ($_POST['userCode'] != $userId) {
+            $userBusinessLaw->deleteUser($_POST['userCode']);
+
+            $filterData = array("", "");
+            $filteredUsers = $userBusinessLaw->listUsers($filterData);
+        } else {
+            $errorMessage = "You can not remove yourself from the system.";
+        }
+    }
+
 } else {
+
     $falseFilter = "";
     $filteredUsers = $userBusinessLaw->listUsers($falseFilter);
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -70,27 +83,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             ?>
                                         </select>
                                     </th>
+                                    <th>
+                                    </th>
                                 </form>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
+                            $i = 0;
                             foreach ($filteredUsers as $user) {
+                                $deleteFormId = "deleteUserForm" . $i;
                                 echo "
                                     <tr>
                                         <td>" . $user['id_user'] . "</td>
-                                        <td>" . $user['name'] . " ".$user['last_name']."</td>
+                                        <td>" . $user['name'] . " " . $user['last_name'] . "</td>
                                         <td>" . $user['profile_user'] . "</td>
+                                        <td>
+                                            <form action='ListUsersView.php' method='POST' class='deleteUserForm' id='" . $deleteFormId . "'>
+                                                <input type='hidden' name='userCode' value='" . $user['id_user'] . "'>
+                                                <input type='hidden' name='userProfile' value=''>
+                                                <button id='deleteUser' type='submit'>
+                                                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
+                                                        <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z'/>
+                                                        <path d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z'/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>";
+                                $i++;
                             }
                             ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../../js/EliminateButtonUser.js"></script>
     </div>
+    <?php
+    if (!empty($errorMessage)) {
+        echo "<p class='errorMessage'>$errorMessage</p>";
+    }
+    ?>
 </body>
 
 </html>

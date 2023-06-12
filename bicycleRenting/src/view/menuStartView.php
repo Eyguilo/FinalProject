@@ -40,15 +40,15 @@ $dataUser = $menuStartAdminBusinessLaw->obtainUserData($userId);
                 </div>
                 <div class="links">
                     <a href="CreateBookingView.php">Create booking</a>
-                    <a href="ListBookingsView.php">Booking list</a>
+                    <a href="ListBookingsView.php">Bookings list</a>
                     <a href="CreateClientView.php">Create client</a> 
-                    <a href="ListClientsView.php"> Client list</a>                  
+                    <a href="ListClientsView.php"> Clients list</a>                  
                     <a href="ListBicyclesView.php">Bicycles list</a>
                     <?php
                     if ($dataUser->getProfileUser() === "Administrator") {
                         echo "
                         <a href='CreateUserView.php'>Create user</a>
-                        <a href='ListUsersView.php'>User list</a>";
+                        <a href='ListUsersView.php'>Users list</a>";
                     }
                     ?>
                 </div>

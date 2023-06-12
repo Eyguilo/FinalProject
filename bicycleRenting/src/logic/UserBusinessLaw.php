@@ -32,7 +32,11 @@ class UserBusinessLaw
         }
 
         if (!empty($filter[1])) {
-            $query .= " AND u.profile_user LIKE '" . $filter[1] . "'";
+            if ($filter[1] == "Administrator") {
+                $query .= " AND u.profile_user LIKE '" . $filter[1] . "'";
+            } elseif ($filter[1] == "Worker") {
+                $query .= " AND u.profile_user LIKE '" . $filter[1] . "'";
+            }
         }
 
         $usersDataAccess = new UserDataAccess();
@@ -44,8 +48,16 @@ class UserBusinessLaw
     function verifyUser($userId, $key)
     {
 
-        $logInDataAccess = new UserDataAccess();
-        $result = $logInDataAccess->verifyUser($userId, $key);
+        $usersDataAccess = new UserDataAccess();
+        $result = $usersDataAccess->verifyUser($userId, $key);
+        return $result;
+    }
+
+    public function deleteUser($userCodeToEliminate)
+    {
+
+        $usersDataAccess = new UserDataAccess();
+        $result = $usersDataAccess->deleteUser($userCodeToEliminate);
         return $result;
     }
 }

@@ -2,21 +2,28 @@
 session_start();
 $userId = $_SESSION['userId'];
 if (!isset($userId)) {
-    header("Location: logInView.php");
+    header("Location: LogInView.php");
 }
 
 require_once("../logic/ClientBusinessLaw.php");
 $clientBusinessLaw = new ClientBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //$filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
-    $filteredClients = $clientBusinessLaw->listClients();
-    $clientBusinessLaw->deleteClient($_POST['idClient']);
 
-    header("Location: " . $_SERVER['PHP_SELF']);
+    $filteredData = array($_POST['clientName']);
+    $filteredClients = $clientBusinessLaw->listClients($filteredData);
+
+    if (isset($_POST['idClient'])) {
+
+        $clientBusinessLaw->deleteClient($_POST['idClient']);
+
+        $filteredData = array('');
+        $filteredClients = $clientBusinessLaw->listClients($filteredData);
+    }
+
 } else {
     $falseFilter = "";
-    $filteredClients = $clientBusinessLaw->listClients();
+    $filteredClients = $clientBusinessLaw->listClients($falseFilter);
 }
 ?>
 
@@ -57,7 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <form id="listBicyclesForm" method="POST"
                                     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                     <th>
-                                        <label for="name">Name</label>
+                                        <input type="text" id="clientName" name="clientName" autocomplete="off"
+                                            placeholder="Jaume Aguis" onchange="this.form.submit()">
                                     </th>
                                     <th>
                                         <label for="email">Email</label>
@@ -78,7 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </thead>
                         <tbody>
                             <?php
+                            $i = 0;
                             foreach ($filteredClients as $client) {
+                                $deleteFormId = "deleteClientForm" . $i;
                                 echo "
                                     <tr>
                                         <td>" . $client['id_client'] . "</td>
@@ -88,8 +98,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td>" . $client['address'] . "</td>
                                         <td>" . $client['postal_code'] . "</td>
                                         <td>
-                                            <form action='ListClientsView.php' method='POST' id='deleteClientForm'>
+                                            <form action='ListClientsView.php' method='POST' class='deleteClientForm' id='" . $deleteFormId . "'>
                                                 <input type='hidden' name='idClient' value='" . $client['id_client'] . "'>
+                                                <input type='hidden' name='clientName' value=''>
                                                 <button id='deleteClient' type='submit'>
                                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
                                                         <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z'/>
@@ -99,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             </form>
                                         </td>
                                     </tr>";
+                                $i++;
                             }
                             ?>
                         </tbody>

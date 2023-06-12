@@ -12,7 +12,7 @@ $bookingBusinessLaw = new BookingBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $filterData = array($_POST['locator'], $_POST['reservationDate'], $_POST['state'], $_POST['userCode']);
+    $filterData = array($_POST['locator'], $_POST['reservationDate'], $_POST['state'], $_POST['userCode'], $_POST['clientName']);
     $reservations = $bookingBusinessLaw->findBooking($filterData);
 
 } else {
@@ -59,17 +59,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             placeholder="aFDE34sD" onchange="this.form.submit()">
                                     </th>
                                     <th>
-                                        <label for="idUser">Client</label>
+                                        <input type="text" id="clientName" name="clientName" autocomplete="off"
+                                            placeholder="Jaume Aguis" onchange="this.form.submit()">
                                     </th>
                                     <th>
-                                    <input type="text" id="userCode" name="userCode" autocomplete="off"
+                                        <input type="text" id="userCode" name="userCode" autocomplete="off"
                                             placeholder="JMGL000" onchange="this.form.submit()">
                                     </th>
                                     <th>
-                                        <label for="startDate">Start date</label>
+                                        <label for="startDate">Start date booking</label>
                                     </th>
                                     <th>
-                                        <label for="endDate">End date</label>
+                                        <label for="endDate">End date booking</label>
                                     </th>
                                     <th>
                                         <label for="bike1">Bike 1</label>
@@ -130,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         default:
                                             $availabilityClass = '';
                                             break;
-                                        }
+                                    }
                                     echo "
                                         <tr class='" . $availabilityClass . "'>
                                             <td>" . $booking['code_locator'] . "</td>

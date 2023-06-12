@@ -149,7 +149,7 @@ input[type="submit"]:hover {
 }
 
 input[type="text"]{
-    width: 50px;
+    width: 200px;
 }
 
 #deleteClient {

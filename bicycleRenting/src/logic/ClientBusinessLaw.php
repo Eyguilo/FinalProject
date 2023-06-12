@@ -17,21 +17,27 @@ class ClientBusinessLaw
         return $result;
     }
 
-    function listClients()
+    function listClients($filter)
     {
         $query = "SELECT c.id_client, c.name, c.last_name, c.email, c.phone, c.address, c.postal_code FROM T_Clients c WHERE 1 = 1";
 
-        // if (!empty($filter[0])) {
-        //     $query .= " AND BINARY u.id_user LIKE '" . $filter[0] . "%'";
-        // }
 
-        // if (!empty($filter[1])) {
-        //     $query .= " AND u.profile_user LIKE '" . $filter[1] . "'";
-        // }
+    
+        if (!empty($filter[0])) {
+            $nameParts = explode(' ', $filter[0]);
+            $nameClient = $nameParts[0];
+            $lastNameClient = isset($nameParts[1]) ? $nameParts[1] : '';
+    
+            $query .= " AND c.name LIKE '" . $nameClient . "%'";
 
+            if($lastNameClient != ''){
+                $query .= " AND c.last_name LIKE '" . $lastNameClient . "%'";
+            }
+        }
+    
         $clientDataAccess = new ClientDataAccess();
         $result = $clientDataAccess->listClients($query);
-
+    
         return $result;
     }
 
