@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f2f2f2;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    height: 93vh;
+}
+
+#centralList {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    overflow: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+thead {
+    background-color: #007bff;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+thead th {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #dcdcdc;
+}
+
+tbody td {
+    font-size: 16px;
+    padding: 12px;
+}
+
+.form-group,
+.form-group-2 {
+    margin-bottom: 20px;
+}
+
+.form-group-2 {
+    width: 70px;
+    float: left;
+    margin-right: 40px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f2f2f2;
+    font-size: 16px;
+    color: #333;
+}
+
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f2f2f2;
+    font-size: 16px;
+    color: #333;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0069d9;
+}
+
+#back-button {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 100px;
+}
+
+#back-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#back-button a:hover {
+    background-color: #0069d9;
+}
+
+.unavailable,
+.unavailable:nth-child(even) {
+    background-color: #ffbaba;
+}
+
+.unavailable:hover{
+    background-color: #a07575;
+}

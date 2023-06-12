@@ -51,8 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <thead>
                             <tr>
                                 <th>
-                                    <input type="text" id="idBicycle" name="idBicycle" autocomplete="off"
-                                        placeholder="ID" onchange="this.form.submit()">
+                                    <label for="id">ID</label>
                                 </th>
                                 <form id="listBicyclesForm" method="POST"
                                     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">

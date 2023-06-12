@@ -21,8 +21,28 @@ class UserDataAccess
         mysqli_select_db($connection, 'db_bicycle_renting');
         $query = mysqli_prepare($connection, "INSERT INTO T_Users VALUES (?,?,?,?,?);");
         $hashKey = password_hash($userData[3], PASSWORD_DEFAULT);
-        $query->bind_param("sssss", $userData[0], $userData[1], $userData[2], $hashKey, $userData[4]);
+        $query->bind_param("sssss", $userData[0], $userData[1], $userData[2], $hashKey, $userData[5]);
         $result = $query->execute();
+
+        $this->queryError($query, $connection);
+
+        return $result;
+    }
+
+    function listUsers($sentence)
+    {
+        $connection = mysqli_connect('localhost', 'root', '1234');
+        if (mysqli_connect_errno()) {
+            echo "Error connecting to MySQL: " . mysqli_connect_error();
+        }
+
+        mysqli_select_db($connection, 'db_bicycle_renting');
+        $query = mysqli_prepare($connection, $sentence);
+        $query->execute();
+
+        $this->queryError($query, $connection);
+
+        $result = $query->get_result();
 
         return $result;
     }
@@ -41,6 +61,8 @@ class UserDataAccess
         $query->execute();
         $result = $query->get_result();
 
+        $this->queryError($query, $connection);
+
         if ($result->num_rows == 0) {
             return 'No profile found with that username.';
         }
@@ -56,6 +78,14 @@ class UserDataAccess
             return $resultArray['profile_user'];
         } else {
             return 'Username or password incorrects.';
+        }
+    }
+
+    private function queryError($query, $connection)
+    {
+
+        if ($query === false) {
+            echo "Error executing query: " . mysqli_error($connection);
         }
     }
 }

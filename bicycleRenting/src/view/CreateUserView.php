@@ -8,21 +8,25 @@ if (!isset($userId)) {
 require_once("../logic/UserBusinessLaw.php");
 $clientBusinessLaw = new UserBusinessLaw();
 
+$errorMessage = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     $createClientBusinessLaw = new UserBusinessLaw();
-    $userData = array($_POST['userName'], $_POST['userLastName'], $_POST['userCode'], $_POST['password1'], $_POST['password2'], $_POST['profileUser']);
-    $create = $createClientBusinessLaw->createUser($userData);
+    $userData = array($_POST['userCode'], $_POST['userName'], $_POST['userLastName'], $_POST['password1'], $_POST['password2'], $_POST['profileUser']);
 
-    if ($_POST['password1'] == $_POST['password2']) {
-
-        header("Location: MenuStartView.php");
-    } else {
-        $errorMessage = true;
+    try {
+        $create = $createClientBusinessLaw->createUser($userData);
+        if ($_POST['password1'] == $_POST['password2']) {
+            header("Location: MenuStartView.php");
+        } else {
+            $errorMessage = "Passwords are not the same.";
+        }
+    } catch (Exception $e) {
+        $errorMessage = "This user code is already introduced.";
     }
-
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create client</title>
+    <title>Create user</title>
     <link rel="stylesheet" href="../../css/createUser.css">
 </head>
 
@@ -39,8 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div id="central">
             <div id="create">
                 <div id="back-button">
-                    <a href="MenuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                    <a href="MenuStartView.php">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-house-fill" viewBox="0 0 16 16">
                             <path
                                 d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
                             <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
@@ -73,16 +78,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <label for="profileUser">Profile:</label>
                         <select id="profileUser" name="profileUser" required>
-                            <option value='' disabled selected>Select profile</option>;
-                            <option value='Administrator'>Administrator</option>;
-                            <option value='Worker'>Worker</option>;
+                            <option value="" disabled selected>Select profile</option>
+                            <option value="Administrator">Administrator</option>
+                            <option value="Worker">Worker</option>
                         </select>
                     </div>
                     <input type="submit" value="Create user">
                 </form>
                 <?php
-                if (isset($errorMessage)) {
-                    echo "<p class='errorMessage'> " . $create . "</p>";
+                if (!empty($errorMessage)) {
+                    echo "<p class='errorMessage'>$errorMessage</p>";
                 }
                 ?>
             </div>
