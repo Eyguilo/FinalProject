@@ -27,21 +27,13 @@ class UserBusinessLaw
     {
         $query = "SELECT u.name, u.last_name, u.id_user, u.profile_user FROM T_Users u WHERE 1 = 1";
 
-        // if (!empty($filter[0])) {
-        //     $query .= " AND BINARY r.code_locator LIKE '" . $filter[0] . "%'";
-        // }
+        if (!empty($filter[0])) {
+            $query .= " AND BINARY u.id_user LIKE '" . $filter[0] . "%'";
+        }
 
-        // if (!empty($filter[2])) {
-        //     $query .= " AND r.state_reservation LIKE '" . $filter[2] . "'";
-        // }
-
-        // if (!empty($filter[1])) {
-        //     if ($filter[1] == "NEWEST") {
-        //         $query .= " ORDER BY i.reservation_date DESC";
-        //     } elseif ($filter[1] == "OLDEST") {
-        //         $query .= " ORDER BY i.reservation_date ASC";
-        //     }
-        // }
+        if (!empty($filter[1])) {
+            $query .= " AND u.profile_user LIKE '" . $filter[1] . "'";
+        }
 
         $usersDataAccess = new UserDataAccess();
         $result = $usersDataAccess->listUsers($query);

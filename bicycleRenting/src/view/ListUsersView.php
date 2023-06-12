@@ -10,7 +10,7 @@ $userBusinessLaw = new UserBusinessLaw();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filterData = array($_POST['userCode'], $_POST['userProfile']);
-    $filteredUsers = $serBusinessLaw->listUsers($filterData);
+    $filteredUsers = $userBusinessLaw->listUsers($filterData);
 } else {
     $falseFilter = "";
     $filteredUsers = $userBusinessLaw->listUsers($falseFilter);
