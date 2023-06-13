@@ -1,23 +1,28 @@
 <?php
-session_start();
-$userId = $_SESSION['userId'];
-if (!isset($userId)) {
-    header("Location: LogInView.php");
+
+try {
+
+    session_start();
+    $userId = $_SESSION['userId'];
+    if (!isset($userId)) {
+        header("Location: LogInView.php");
+    }
+
+    require_once("../logic/BicycleBusinessLaw.php");
+    $bicyclesBusinessLaw = new BicycleBusinessLaw();
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
+        $filteredBicycles = $bicyclesBusinessLaw->findBicycles($filterData);
+    } else {
+        $falseFilter = "";
+        $filteredBicycles = $bicyclesBusinessLaw->findBicycles($falseFilter);
+    }
+
+} catch (Exception $e) {
+    header("Location: ErrorView.php");
+    exit();
 }
-
-require_once("../logic/BicycleBusinessLaw.php");
-$bicyclesBusinessLaw = new BicycleBusinessLaw();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $filterData = array($_POST['brand'], $_POST['model'], $_POST['size'], $_POST['available']);
-    $filteredBicycles = $bicyclesBusinessLaw->findBicycles($filterData);
-} else {
-    $falseFilter = "";
-    $filteredBicycles = $bicyclesBusinessLaw->findBicycles($falseFilter);
-}
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

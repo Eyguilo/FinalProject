@@ -1,30 +1,39 @@
 <?php
-session_start();
-$userId = $_SESSION['userId'];
-if (!isset($userId)) {
-    header("Location: LogInView.php");
-}
 
-require_once("../logic/UserBusinessLaw.php");
-$clientBusinessLaw = new UserBusinessLaw();
+try {
 
-$errorMessage = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $createClientBusinessLaw = new UserBusinessLaw();
-    $userData = array($_POST['userCode'], $_POST['userName'], $_POST['userLastName'], $_POST['password1'], $_POST['password2'], $_POST['profileUser']);
-
-    try {
-        $create = $createClientBusinessLaw->createUser($userData);
-        if ($_POST['password1'] == $_POST['password2']) {
-            header("Location: MenuStartView.php");
-        } else {
-            $errorMessage = "Passwords are not the same.";
-        }
-    } catch (Exception $e) {
-        $errorMessage = "This user code is already introduced.";
+    session_start();
+    $userId = $_SESSION['userId'];
+    if (!isset($userId)) {
+        header("Location: LogInView.php");
     }
+
+    require_once("../logic/UserBusinessLaw.php");
+    $clientBusinessLaw = new UserBusinessLaw();
+
+    $errorMessage = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $createClientBusinessLaw = new UserBusinessLaw();
+        $userData = array($_POST['userCode'], $_POST['userName'], $_POST['userLastName'], $_POST['password1'], $_POST['password2'], $_POST['profileUser']);
+
+        try {
+            $create = $createClientBusinessLaw->createUser($userData);
+            if ($_POST['password1'] == $_POST['password2']) {
+                header("Location: MenuStartView.php");
+            } else {
+                $errorMessage = "Passwords are not the same.";
+            }
+        } catch (Exception $e) {
+            $errorMessage = "This user code is already introduced.";
+        }
+    }
+
+} catch (Exception $e) {
+    header("Location: ErrorView.php");
+    exit();
 }
+
 ?>
 
 <!DOCTYPE html>

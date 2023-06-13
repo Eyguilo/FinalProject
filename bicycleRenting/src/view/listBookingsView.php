@@ -1,23 +1,30 @@
 <?php
 
-session_start();
-$userId = $_SESSION['userId'];
-if (!isset($userId)) {
-    header("Location: LogInView.php");
-}
+try {
 
-require_once("../logic/BookingBusinessLaw.php");
-$bookingBusinessLaw = new BookingBusinessLaw();
+    session_start();
+    $userId = $_SESSION['userId'];
+    if (!isset($userId)) {
+        header("Location: LogInView.php");
+    }
+
+    require_once("../logic/BookingBusinessLaw.php");
+    $bookingBusinessLaw = new BookingBusinessLaw();
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $filterData = array($_POST['locator'], $_POST['reservationDate'], $_POST['state'], $_POST['userCode'], $_POST['clientName']);
-    $reservations = $bookingBusinessLaw->findBooking($filterData);
+        $filterData = array($_POST['locator'], $_POST['reservationDate'], $_POST['state'], $_POST['userCode'], $_POST['clientName']);
+        $reservations = $bookingBusinessLaw->findBooking($filterData);
 
-} else {
-    $falseFilter = "";
-    $reservations = $bookingBusinessLaw->findBooking($falseFilter);
+    } else {
+        $falseFilter = "";
+        $reservations = $bookingBusinessLaw->findBooking($falseFilter);
+    }
+
+} catch (Exception $e) {
+    header("Location: ErrorView.php");
+    exit();
 }
 
 ?>

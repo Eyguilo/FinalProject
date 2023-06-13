@@ -2,12 +2,6 @@
 
 try {
 
-    session_start();
-    $userId = $_SESSION['userId'];
-    if (!isset($userId)) {
-        header("Location: LogInView.php");
-    }
-
     require_once("../logic/BicycleBusinessLaw.php");
     $bicyclesBusinessLaw = new BicycleBusinessLaw();
 
@@ -29,12 +23,12 @@ try {
 
         if (!empty($_POST['clientList'])) {
 
-            $bookingData = array($_POST['clientList'], $userId, $_POST['startDate'], $_POST['endDate'], $_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
+            $bookingData = array($_POST['clientList'], "CLNT000", $_POST['startDate'], $_POST['endDate'], $_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
             $dateData = array($_POST['startDate'], $_POST['endDate']);
             $bicyclesId = array($_POST['bicycle1'], $_POST['bicycle2'], $_POST['bicycle3'], $_POST['bicycle4']);
             $locator = $bookingBusinessLaw->createBookingInvoice($bookingData, $dateData, $bicyclesId);
 
-            $url = 'ShowInvoiceView.php?locator=' . $locator;
+            $url = 'ShowInvoiceClientView.php?locator=' . $locator;
             header('Location: ' . $url);
         }
     } else {
@@ -65,7 +59,7 @@ try {
 <body>
     <div id="container">
         <div id="back-button">
-            <a href="menuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            <a href="MenuClientView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                     fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                     <path
                         d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
@@ -76,11 +70,9 @@ try {
         <div id="centralBooking">
             <div id="create">
                 <div class="title">Create Booking</div>
-                <form id="createBookingForm" method="POST" action="CreateBookingView.php">
+                <form id="createBookingForm" method="POST" action="CreateBookingClientView.php">
                     <div class="form-group">
-                        <label>Worker:
-                            <?php echo $userId; ?>
-                        </label>
+                        <label>Worker: CLNT000</label>
                     </div>
                     <div class="form-group">
                         <label for="clientName">Client:</label>

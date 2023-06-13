@@ -1,11 +1,10 @@
-*{
+* {
     padding: 0%;
     margin: 0%;
 }
 
 body {
-    background-color: #F0ECEC;
-    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
 }
 
 #container {
@@ -19,7 +18,7 @@ body {
     background-color: #E8E8E8;
     border-radius: 5px;
     padding: 20px;
-    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
 }
 
 #start {
@@ -27,8 +26,9 @@ body {
 }
 
 .title {
-    font-size: 32px;
-    color: #595959;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -40,27 +40,51 @@ input[type="password"] {
     margin-bottom: 10px;
     border-radius: 5px;
     border: none;
-    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #B4E1E1;
+    background-color: #007bff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    color: white;
 }
 
 input[type="submit"]:hover {
-    background-color: #A2D2D2;
+    background-color: #0069d9;
 }
 
 .errorMessage {
     color: #FF7575;
     margin-top: 10px;
     font-size: 20px;
+}
+
+#homeButton {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 100%;
+}
+
+#homeButton a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#homeButton a:hover {
+    background-color: #0069d9;
 }

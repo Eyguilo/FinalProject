@@ -1,29 +1,37 @@
 <?php
-session_start();
-$userId = $_SESSION['userId'];
-if (!isset($userId)) {
-    header("Location: LogInView.php");
-}
 
-require_once("../logic/ClientBusinessLaw.php");
-$clientBusinessLaw = new ClientBusinessLaw();
+try {
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $filteredData = array($_POST['clientName']);
-    $filteredClients = $clientBusinessLaw->listClients($filteredData);
-
-    if (isset($_POST['idClient'])) {
-
-        $clientBusinessLaw->deleteClient($_POST['idClient']);
-
-        $filteredData = array('');
-        $filteredClients = $clientBusinessLaw->listClients($filteredData);
+    session_start();
+    $userId = $_SESSION['userId'];
+    if (!isset($userId)) {
+        header("Location: LogInView.php");
     }
 
-} else {
-    $falseFilter = "";
-    $filteredClients = $clientBusinessLaw->listClients($falseFilter);
+    require_once("../logic/ClientBusinessLaw.php");
+    $clientBusinessLaw = new ClientBusinessLaw();
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $filteredData = array($_POST['clientName']);
+        $filteredClients = $clientBusinessLaw->listClients($filteredData);
+
+        if (isset($_POST['idClient'])) {
+
+            $clientBusinessLaw->deleteClient($_POST['idClient']);
+
+            $filteredData = array('');
+            $filteredClients = $clientBusinessLaw->listClients($filteredData);
+        }
+
+    } else {
+        $falseFilter = "";
+        $filteredClients = $clientBusinessLaw->listClients($falseFilter);
+    }
+
+} catch (Exception $e) {
+    header("Location: ErrorView.php");
+    exit();
 }
 ?>
 

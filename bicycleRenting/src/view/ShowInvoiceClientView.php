@@ -1,14 +1,6 @@
 <?php
 
 try {
-
-    session_start();
-    $userId = $_SESSION['userId'];
-    $profileUser = $_SESSION['profile'];
-    if (!isset($userId)) {
-        header("Location: LogInView.php");
-    }
-
     require_once("../logic/BookingBusinessLaw.php");
     require_once("../logic/BicycleBusinessLaw.php");
 
@@ -18,29 +10,16 @@ try {
 
             $bookingBusinessLaw = new BookingBusinessLaw();
             $bookingBusinessLaw->updateStateBooking($_POST['locatorToPay'], $_POST['state']);
-            header("Location: ListBookingsView.php");
+            header("Location: MenuClientView.php");
 
         } else if (isset($_POST['locatorToCancel'])) {
             $bookingBusinessLaw = new BookingBusinessLaw();
             $bicycleBusinessLaw = new BicycleBusinessLaw();
             $bookingBusinessLaw->updateStateBooking($_POST['locatorToCancel'], $_POST['state']);
             $bicycleBusinessLaw->updateToAvailableBicycle($_POST['locatorToCancel']);
-            header("Location: ListBookingsView.php");
-
-        } else if (isset($_POST['locatorToEliminate'])) {
-            $bookingBusinessLaw = new BookingBusinessLaw();
-            $bookingBusinessLaw->deleteBooking($_POST['locatorToEliminate']);
-            header("Location: ListBookingsView.php");
-
-        } else if (isset($_POST['locatorToFinished'])) {
-            $bookingBusinessLaw = new BookingBusinessLaw();
-            $bicycleBusinessLaw = new BicycleBusinessLaw();
-            $bookingBusinessLaw->updateStateBooking($_POST['locatorToFinished'], $_POST['state']);
-            $bicycleBusinessLaw->updateToAvailableBicycle($_POST['locatorToFinished']);
-            header("Location: ListBookingsView.php");
+            header("Location: MenuClientView.php");
 
         }
-
     } else {
         $locator = $_GET['locator'];
         $bookingBusinessLaw = new BookingBusinessLaw();
@@ -72,19 +51,11 @@ try {
     <div id="container">
         <div id="buttons">
             <div id="homeButton">
-                <a href="MenuStartView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <a href="MenuClientView.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                         <path
                             d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
                         <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
-                    </svg>
-                </a>
-            </div>
-            <div id="backButton">
-                <a href="ListBookingsView.php"> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                        fill='currentColor' class='bi bi-arrow-left' viewBox='0 0 16 16'>
-                        <path fill-rule='evenodd'
-                            d='M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z' />
                     </svg>
                 </a>
             </div>
@@ -188,42 +159,20 @@ try {
                 if ($invoiceData[0]['state_reservation'] == "PENDING") {
                     echo "                
                     <div class='groupButton'>
-                        <form id='payInvoice' method='POST' action='ShowInvoiceView.php'>
+                        <form id='payInvoice' method='POST' action='ShowInvoiceClientView.php'>
                             <input type='hidden' name='locatorToPay' value='" . $invoiceData[0]['locator'] . "'>
                             <input type='hidden' name='state' value='PAID'>
                             <input type='submit' name='actionUpdate' value='Pay'>
                         </form>
                     </div>
                     <div class='groupButton'>
-                        <form id='cancelInvoice' method='POST' action='ShowInvoiceView.php'>
+                        <form id='cancelInvoice' method='POST' action='ShowInvoiceClientView.php'>
                             <input type='hidden' name='locatorToCancel' value='" . $invoiceData[0]['locator'] . "'>
                             <input type='hidden' name='state' value='CANCELLED'>
                             <input type='submit' name='actionUpdate' value='Cancel'>
                         </form>
                     </div>";
                 }
-
-                if ($profileUser == "Administrator") {
-                    echo "
-                    <div class='groupButton'>
-                        <form id='eliminateInvoice' method='POST' action='ShowInvoiceView.php'>
-                            <input type='hidden' name='locatorToEliminate' value='" . $invoiceData[0]['locator'] . "'>
-                            <input type='submit' name='actionEliminate' value='Eliminate'>
-                        </form>
-                    </div>";
-                }
-
-                if ($invoiceData[0]['state_reservation'] != "FINISHED") {
-                    echo "
-                    <div class='groupButton'>
-                        <form id='finishInvoice' method='POST' action='ShowInvoiceView.php'>
-                            <input type='hidden' name='locatorToFinished' value='" . $invoiceData[0]['locator'] . "'>
-                            <input type='hidden' name='state' value='FINISHED'>
-                            <input type='submit' name='actionFinished' value='Finished'>
-                        </form>
-                    </div>";
-                }
-
                 ?>
 
             </div>
@@ -231,8 +180,6 @@ try {
     </div>
     <script src="../../js/PayButtonInvoice.js"></script>
     <script src="../../js/CancelButtonInvoice.js"></script>
-    <script src="../../js/EliminateButtonInvoice.js"></script>
-    <script src="../../js/FinishButtonInvoice.js"></script>
 </body>
 
 </html>
