@@ -94,6 +94,8 @@ CREATE TABLE T_Invoices (
 
 INSERT INTO T_Users (id_user, name, last_name, key_user, profile_user) 
 VALUES ('JMGL000', 'Jaume', 'Piza', '$2y$10$abegd4mj6sXOrOpSZ7ZAyeMqq8paah87qSWebgpnPhHDaCx2MZ7f6', 'Administrator');
+INSERT INTO T_Users (id_user, name, last_name, key_user, profile_user) 
+VALUES ('CLNT000', 'Client', 'Client', '$2y$10$abegd4mj6sXOrOpSZ7ZAyeMqq8paah87qSWebgpnPhHDaCx2MZ7f6', 'Administrator');
 
 INSERT INTO T_Clients (name, last_name, email, phone, address, postal_code) VALUES
 ('John', 'Doe', 'johndoe@example.com', '123-456-789', '123 Main St.', 56743),
@@ -128,20 +130,20 @@ INSERT INTO T_Clients (name, last_name, email, phone, address, postal_code) VALU
 ('Heather', 'Phillips', 'heatherphillips@example.com', '444-555-666', '2345 Oak St.', 56743);
 
 INSERT INTO T_Brands (name, description)
-VALUES ('Trek' ,'Marca estadounidense de bicicletas conocida por su tecnología innovadora y diseños de alta calidad'), 
-('Specialized', 'Marca estadounidense de bicicletas especializada en bicicletas de carretera y montaña de alta gama'), 
-('Giant', 'Marca taiwanesa de bicicletas con una amplia variedad de modelos y precios para ciclistas de todos los niveles'), 
-('Cannondale', 'Marca estadounidense de bicicletas conocida por sus diseños innovadores y tecnología avanzada');
+VALUES ('Trek' ,'An American brand of bicycles known for its innovative technology and high-quality designs'),
+('Specialized', 'An American brand of bicycles specializing in high-end road and mountain bikes'),
+('Giant', 'A Taiwanese brand of bicycles with a wide variety of models and prices for cyclists of all levels'),
+('Cannondale', 'An American brand of bicycles known for its innovative designs and advanced technology');
 
 INSERT INTO T_Models (id_brand, name, description)
-VALUES (1, 'X-Caliber', 'Una bicicleta de montaña resistente y ágil para todo tipo de terrenos'), 
-(1, 'Fuel EX', 'Una bicicleta de trail de doble suspensión diseñada para recorrer senderos técnicos con confianza y velocidad'), 
-(2, 'Roubaix', 'Una bicicleta de carretera cómoda y rápida para largas distancias y terrenos variados'), 
-(2, 'Diverge', 'Una bicicleta de aventura versátil que puede recorrer caminos de grava, terrenos escarpados y carreteras'),
-(3, 'Defy', 'Una bicicleta de carretera de resistencia que ofrece una conducción cómoda y estable durante largas distancias'), 
-(3, 'TCR', 'Una bicicleta de carretera de alta gama para competiciones y carreras'), 
-(4, 'Topstone', 'Una bicicleta de grava de alto rendimiento con suspensión que ofrece una conducción cómoda y estable en terrenos difíciles'), 
-(4, 'Synapse', 'Una bicicleta de carretera versátil y cómoda que ofrece un rendimiento de alta calidad para todo tipo de ciclistas');
+VALUES (1, 'X-Caliber', 'A rugged and agile mountain bike for all types of terrain'),
+(1, 'Fuel EX', 'A full-suspension trail bike designed to tackle technical trails with confidence and speed'),
+(2, 'Roubaix', 'A comfortable and fast road bike for long distances and varied terrains'),
+(2, 'Diverge', 'A versatile adventure bike that can handle gravel paths, rugged terrain, and roads'),
+(3, 'Defy', 'An endurance road bike that offers a comfortable and stable ride for long distances'),
+(3, 'TCR', 'A high-end road bike for racing and competitions'),
+(4, 'Topstone', 'A high-performance gravel bike with suspension that provides a comfortable and stable ride on challenging terrains'),
+(4, 'Synapse', 'A versatile and comfortable road bike that delivers high-quality performance for all types of cyclists');
        
 INSERT INTO T_Size (size_cm)
 SELECT size FROM
